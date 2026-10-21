@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Sunday Music · Montpellier</title>
-<meta name="description" content="Sunday Music : la house au soleil, le dimanche. Éditions, line-up, photos, infos pratiques et préventes.">
+<meta name="description" content="Sunday Music, Montpellier : éditions, line-ups, photos, Instagram en direct et infos pratiques. Sunday is not a day off.">
 <meta name="theme-color" content="#2c6ab5">
 <link rel="icon" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -86,10 +86,14 @@ nav.solid .burger{color:var(--ink)}
 @keyframes pop{from{opacity:0;transform:translateY(30px) scale(.94);filter:brightness(0) invert(1) blur(12px)}}
 .hero .tag{font-family:var(--hand);font-size:clamp(30px,4.5vw,46px);transform:rotate(-2deg);margin-top:4px;animation:pop 1.4s .4s both}
 .countdown{display:flex;gap:10px;justify-content:center;margin:34px 0 10px;animation:pop 1.2s .7s both}
+.countdown[hidden]{display:none}
 .countdown div{background:rgba(255,250,241,.2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.35);border-radius:16px;padding:12px 4px;flex:0 1 84px;min-width:0}
 .countdown b{display:block;font:800 34px var(--serif);font-variant-numeric:tabular-nums}
 .countdown span{font-size:10px;text-transform:uppercase;letter-spacing:.12em}
 .hero small{display:block;font-weight:700;font-size:13px;opacity:.95;animation:pop 1.2s .8s both}
+.nextbox{display:inline-grid;gap:2px;margin-top:30px;background:rgba(255,250,241,.2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.35);border-radius:18px;padding:14px 22px;animation:pop 1.2s .7s both;max-width:100%}
+.nextbox b{font:800 22px var(--serif)}
+.nextbox span{font-size:13px;font-weight:700;opacity:.95}
 .hero .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px;animation:pop 1.2s 1s both}
 .hero .ctas .btn.ghost{color:#fff}
 .scroll{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;width:26px;height:42px;border:2px solid rgba(255,255,255,.8);border-radius:20px}
@@ -323,7 +327,7 @@ footer .big em{font-weight:500;color:var(--sun)}
       <a href="#jourj">Jour J</a>
       <a href="#musique">Musique</a>
     </div>
-    <a class="btn sun" href="#preventes"><span class="eq"><i></i><i></i><i></i><i></i></span> Préventes</a>
+    <a class="btn sun" href="#preventes"><span class="eq"><i></i><i></i><i></i><i></i></span> Prochaine date</a>
     <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">☰</button>
   </div>
 </nav>
@@ -336,16 +340,16 @@ footer .big em{font-weight:500;color:var(--sun)}
   <div class="sunball"></div>
   <div class="hero-in">
     <h1><img class="wordmark" src="logo-wordmark.webp" alt="Sunday Music" width="720" height="200"></h1>
-    <p class="tag">Le dimanche, ça se danse au soleil</p>
-    <div class="countdown" aria-label="Compte à rebours jusqu'à dimanche 13 h">
+    <p class="tag">Sunday is not a day off.</p>
+    <div class="countdown" id="cd" hidden aria-label="Compte à rebours jusqu'à la prochaine édition">
       <div><b id="cd-d">0</b><span>jours</span></div>
       <div><b id="cd-h">00</b><span>heures</span></div>
       <div><b id="cd-m">00</b><span>min</span></div>
       <div><b id="cd-s">00</b><span>sec</span></div>
     </div>
-    <small>avant dimanche, 13 h · Montpellier &amp; Occitanie</small>
+    <div class="nextbox" id="nextbox"></div>
     <div class="ctas">
-      <a class="btn sun" href="#preventes">🎫 Me pré-inscrire</a>
+      <a class="btn sun" href="#preventes">🔔 Être prévenu·e</a>
       <a class="btn ghost" href="#editions">Voir les éditions</a>
     </div>
   </div>
@@ -359,23 +363,23 @@ footer .big em{font-weight:500;color:var(--sun)}
     <div>
       <div class="kicker rv">L'esprit Sunday</div>
       <h2 class="rv d1">De la house, <em>en plein jour.</em></h2>
-      <p class="lead rv d2">Sunday Music, c'est le rendez-vous du dimanche : on arrive en début d'après-midi, on danse au soleil, et la nuit tombe sans qu'on la voie venir.</p>
-      <p class="rv d3" style="margin-top:14px">Un tarmac d'aéroport, des arènes romaines, le premier étage de la Tour Eiffel, des rooftops de club… Chaque édition change de décor, l'énergie reste la même. Et les DJ du Sunday Crew sont toujours là pour ouvrir et fermer la fête.</p>
+      <p class="lead rv d2">Tout commence un dimanche froid de janvier 2019 : une bande d'amis, une cabane au fond d'un jardin, des platines et une paëlla. Ils sont 20. En septembre de la même année, ils sont près de 1 000.</p>
+      <p class="rv d3" style="margin-top:14px">Depuis, Sunday Music a investi le tarmac de l'aéroport de Montpellier, les arènes de Lunel et de Nîmes, le premier étage de la Tour Eiffel, une plage de Port-Barcarès, le Clos de Provence et le rooftop de La Dune. Le décor change, l'esprit reste. Et Soubeiran, Tibo KSRG et Mathis Bouloc, le Sunday Crew, sont de chaque date.</p>
     </div>
     <div class="polas rv d2">
-      <div class="pola"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/6718c510635b096b569c1647/051fa4af-6f0b-48d3-ab93-c749a5eb79b0/_N8A9249-2.jpg?format=750w" alt="Foule Sunday Music au soleil"><span>13.09 · tarmac ✈️</span></div>
-      <div class="pola"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/6718c510635b096b569c1647/61d46db6-b157-434e-bf2e-550b717157a6/SUNDAYMUSICFESTIVAL-%40jordanmarchand_cv-71.jpg?format=750w" alt="Sunday Music Festival"><span>golden hour</span></div>
-      <div class="pola"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/6718c510635b096b569c1647/aa1f3e7e-3545-4cb3-9db9-4626d7ad7e07/_N8A9383.jpg?format=750w" alt="Danseurs Sunday Music"><span>la famille ☀️</span></div>
+      <div class="pola"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/6718c510635b096b569c1647/051fa4af-6f0b-48d3-ab93-c749a5eb79b0/_N8A9249-2.jpg?format=750w" alt="Foule sur le tarmac de l'aéroport, un avion derrière"><span>sur le tarmac ✈️</span></div>
+      <div class="pola"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/6718c510635b096b569c1647/61d46db6-b157-434e-bf2e-550b717157a6/SUNDAYMUSICFESTIVAL-%40jordanmarchand_cv-71.jpg?format=750w" alt="Cœurs avec les mains dans les arènes"><span>dans les arènes</span></div>
+      <div class="pola"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/6718c510635b096b569c1647/aa1f3e7e-3545-4cb3-9db9-4626d7ad7e07/_N8A9383.jpg?format=750w" alt="DJ sous l'enseigne Sunday"><span>derrière les platines</span></div>
     </div>
   </div>
   <div class="wrap">
     <div class="stats">
-      <div class="stat rv"><b data-count="72.9" data-dec="1" data-suf=" k">0</b><span>abonnés Instagram</span></div>
-      <div class="stat rv d1"><b data-count="15000">0</b><span>personnes sur le tarmac en 2026</span></div>
-      <div class="stat rv d2"><b data-count="11">0</b><span>éditions depuis 2024</span></div>
-      <div class="stat rv d3"><b data-count="62">0</b><span>artistes invités</span></div>
+      <div class="stat rv"><b data-count="72.8" data-dec="1" data-suf=" k">0</b><span>abonnés Instagram</span></div>
+      <div class="stat rv d1"><b data-count="15000">0</b><span>personnes sur le tarmac le 13 septembre 2026</span></div>
+      <div class="stat rv d2"><b data-count="37">0</b><span>dates publiées sur Shotgun depuis 2021</span></div>
+      <div class="stat rv d3"><b data-count="2019">0</b><span>la toute première, dans une cabane</span></div>
     </div>
-    <p class="credit">Chiffres publiés par Sunday Music sur Instagram et Shotgun.</p>
+    <p class="credit">Sources : Instagram @sundaymusic.ofc, page Shotgun et site officiel de Sunday Music, relevés le 21/10/2026.</p>
   </div>
 </section>
 
@@ -383,8 +387,8 @@ footer .big em{font-weight:500;color:var(--sun)}
   <div class="stars"></div>
   <div class="wrap" style="position:relative">
     <div class="kicker rv">2024 → 2026</div>
-    <h2 class="rv d1">Onze dimanches <em>à part.</em></h2>
-    <p class="lead rv d2">Du tarmac de l'aéroport de Montpellier aux arènes de Nîmes, chaque édition a son décor.</p>
+    <h2 class="rv d1">Les grandes <em>dates.</em></h2>
+    <p class="lead rv d2">Les éditions de 2024 à 2026, dates et line-ups tels que publiés sur Shotgun. Les after parties ne sont pas listées.</p>
     <div class="filters rv" id="ed-filters"></div>
     <div class="timeline" id="timeline"></div>
   </div>
@@ -437,31 +441,31 @@ footer .big em{font-weight:500;color:var(--sun)}
 <section class="sec" id="jourj">
   <div class="wrap">
     <div class="kicker rv">Le jour J</div>
-    <h2 class="rv d1">De 13 h <em>jusqu'au bout de la nuit.</em></h2>
-    <p class="lead rv d2">Exemple du déroulé de l'édition Aéroport 2026. Les horaires exacts sont donnés avant chaque édition.</p>
+    <h2 class="rv d1">Du midi <em>jusqu'au bout de la nuit.</em></h2>
+    <p class="lead rv d2">L'édition Aéroport du 13 septembre 2026, telle qu'annoncée sur Shotgun. Les horaires changent à chaque édition.</p>
     <div class="dday">
       <div class="card rv" id="program">
-        <h3>Programme type</h3>
+        <h3>Aéroport 2026, la journée</h3>
         <div id="sets"></div>
       </div>
       <div class="card rv d1">
         <h3>Infos pratiques</h3>
         <div class="infos">
-          <div class="info"><span>🎫</span><div><b>Billets</b><p>Uniquement sur la billetterie officielle. Préventes d'abord pour les pré-inscrits.</p></div></div>
-          <div class="info"><span>🚌</span><div><b>Navettes</b><p>Retours vers Montpellier centre toute la soirée (exemple : 22 h → 1 h 30).</p></div></div>
-          <div class="info"><span>💧</span><div><b>Eau gratuite</b><p>Gourdes vides acceptées à l'entrée.</p></div></div>
-          <div class="info"><span>⛑️</span><div><b>Secours</b><p>Poste de secours sur place. Urgence : 112.</p></div></div>
-          <div class="info"><span>🧥</span><div><b>Vestiaire</b><p>Juste après l'entrée.</p></div></div>
-          <div class="info"><span>🔞</span><div><b>18 ans et +</b><p>Pièce d'identité demandée à l'entrée.</p></div></div>
+          <div class="info"><span>🎫</span><div><b>Billets</b><p>Uniquement sur Shotgun, la billetterie officielle de Sunday Music.</p></div></div>
+          <div class="info"><span>🔞</span><div><b>Âge</b><p>18 ans et plus, ou 16 ans et plus accompagné·e d'un majeur responsable.</p></div></div>
+          <div class="info"><span>🌙</span><div><b>After parties</b><p>Après les grandes dates, l'after continue en club (Casita, La Dune), avec un billet à part.</p></div></div>
+          <div class="info"><span>✉️</span><div><b>Bénévoles, partenaires</b><p>contact@astra-production.com</p></div></div>
+          <div class="info"><span>🛍️</span><div><b>Boutique</b><p>Nouvelle collection bientôt disponible sur shop.sundaymusic.events.</p></div></div>
+          <div class="info"><span>📍</span><div><b>Basé à Montpellier</b><p>Des dates dans toute l'Occitanie, et parfois plus loin.</p></div></div>
         </div>
       </div>
     </div>
     <div class="card rv" style="margin-top:28px">
       <h3>Questions fréquentes</h3>
-      <details><summary>Où acheter mes billets ?</summary><p>Sur la billetterie officielle indiquée dans le Linktree de Sunday Music. Méfiez-vous des reventes hors plateforme.</p></details>
-      <details><summary>C'est complet, je fais comment ?</summary><p>Inscrivez-vous à la liste d'attente plus bas : en cas de places libérées, vous êtes prévenu en premier.</p></details>
-      <details><summary>Je peux revenir après être sorti ?</summary><p>Les règles de sortie dépendent du lieu. Elles sont précisées sur la page de chaque édition.</p></details>
-      <details><summary>Comment rentrer après la fête ?</summary><p>Des navettes partent régulièrement vers le centre de Montpellier. Pensez aussi au covoiturage avec votre bande.</p></details>
+      <details><summary>C'est quand, la prochaine ?</summary><p>Aucune date n'est encore annoncée. Les dates sortent d'abord sur Instagram (@sundaymusic.ofc) et sur la page Shotgun de Sunday Music.</p></details>
+      <details><summary>Où acheter mes billets ?</summary><p>Sur Shotgun ou via la rubrique « Événements » du site officiel. Méfiez-vous des reventes hors plateforme.</p></details>
+      <details><summary>Y a-t-il un âge minimum ?</summary><p>L'accès est réservé aux 18 ans et plus, ou aux plus de 16 ans accompagnés d'un majeur responsable.</p></details>
+      <details><summary>Je veux être bénévole ou partenaire</summary><p>Écrivez à contact@astra-production.com.</p></details>
     </div>
   </div>
 </section>
@@ -471,18 +475,18 @@ footer .big em{font-weight:500;color:var(--sun)}
     <div class="next rv">
       <div style="position:relative">
         <div class="kicker">Prochaine édition</div>
-        <h2>Clos de <em style="color:#fff3d6">Provence</em></h2>
-        <p style="font-size:18px;opacity:.95">Date et line-up à venir. Les préventes ouvrent d'abord aux pré-inscrits.</p>
+        <h2>Pas encore <em style="color:#fff3d6">annoncée</em></h2>
+        <p style="font-size:18px;opacity:.95">Aucune date en vente pour l'instant. La dernière : l'Aéroport de Montpellier, le 13 septembre 2026. Inscris-toi pour être prévenu·e en premier.</p>
         <div class="poll">
           <b style="font-size:18px">Qui pour la prochaine édition ?</b>
           <div id="poll"></div>
         </div>
       </div>
       <form id="presale">
-        <b style="font:800 24px var(--serif)">🎫 Pré-inscription</b>
+        <b style="font:800 24px var(--serif)">🔔 Être prévenu·e</b>
         <input type="email" id="email" required placeholder="ton@email.fr" aria-label="Adresse e-mail" autocomplete="email">
-        <label><input type="checkbox" id="wait"> M'ajouter aussi à la liste d'attente</label>
-        <button class="btn" type="submit" style="justify-content:center">Je veux mes préventes</button>
+        <label><input type="checkbox" id="wait"> Me prévenir aussi des préventes</label>
+        <button class="btn" type="submit" style="justify-content:center">Prévenez-moi</button>
         <small style="opacity:.85">Démo : rien n'est envoyé, l'inscription reste sur cet appareil.</small>
       </form>
     </div>
@@ -528,41 +532,54 @@ footer .big em{font-weight:500;color:var(--sun)}
       <a href="https://shop.sundaymusic.events/" target="_blank" rel="noopener">Boutique</a>
       <a href="https://sundaymusic.events/" target="_blank" rel="noopener">Site officiel</a>
     </div>
-    <p class="legal">Démo · maquette non officielle, réalisée pour présentation aux organisateurs de Sunday Music. Logo et photos : sundaymusic.events. Le sondage et le formulaire de préventes sont des exemples. Instagram : derniers posts réels du compte (démo), stories d'exemple.</p>
+    <p class="legal">Démo · maquette non officielle, réalisée pour présentation aux organisateurs de Sunday Music. Logo et photos : sundaymusic.events. Le sondage (votes) et le formulaire « Être prévenu·e » sont des exemples, rien n'est envoyé. Dates et line-ups : page Shotgun de Sunday Music. Instagram : derniers posts réels du compte (démo), stories d'exemple.</p>
   </div>
 </footer>
 
-<div class="mbar" id="mbar"><a class="btn sun" href="#preventes">🎫 Préventes</a><a class="btn" href="#insta">Instagram</a></div>
+<div class="mbar" id="mbar"><a class="btn sun" href="#preventes">🔔 Me prévenir</a><a class="btn" href="#insta">Instagram</a></div>
 <button class="totop" id="totop" aria-label="Revenir en haut">↑</button>
 <div class="toast" id="toast" role="status"></div>
 
 <script>
 const IG = 'https://www.instagram.com/';
-const EDITIONS = [
-  {id:'airport26', post:'p/DdRqsyQDLav', ico:'✈️', when:'13 sept. 2026', title:'Aéroport de Montpellier · 3ᵉ édition', place:'Aéroport',
-   text:'15 000 personnes sur le tarmac, de 13 h à 1 h. Le plus gros show de l\'année.',
-   who:['ANOTR','AMOR','Silvie Loto','ALCI','Soubeiran','Casa Mata']},
-  {id:'lunel26', post:'p/DafYP3FjNie', ico:'🏟️', when:'5 juil. 2026', title:'Arènes de Lunel', place:'Arènes',
-   text:'Retour à la maison pour 12 h de show. Plus de 8 000 pré-inscrits.', who:['Mochakk','Soubeiran','Mathis Bouloc','Tibo KSRG','Solarce Brothers','Mamba Skar']},
-  {id:'nimes26', post:'p/DYNN6ljDIyL', ico:'🎻', when:'8 mai 2026', title:'Arènes de Nîmes × Garten Project', place:'Arènes',
-   text:'Premier show orchestral de Black Coffee en Europe. 14 000 danseurs.', who:['Black Coffee']},
-  {id:'dune26', post:'reel/DUnLV0XDP35', ico:'🌞', when:'5 avr. 2026', title:'La Dune · 4ᵉ édition', place:'Club',
-   text:'Le club ouvert en pleine journée : club, patio et rooftop Terrazza.', who:['Claptone','Soubeiran','Tibo KSRG','Mathis Bouloc','Casa Mata']},
-  {id:'origins26', post:'p/DUlcmVzDKdA', ico:'🏠', when:'Début 2026', title:'Origins by Sunday', place:'Club',
-   text:'Retour aux soirées en petit comité des débuts. Sold out.', who:[]},
-  {id:'dec25', post:'p/DS2uA6mjLbv', ico:'❤️‍🔥', when:'Déc. 2025', title:'Dernier dimanche de 2025', place:'Club',
-   text:'La soirée de clôture d\'une année folle.', who:[]},
-  {id:'airport25', post:'p/DOti-fTjOup', ico:'✈️', when:'14 sept. 2025', title:'Aéroport de Montpellier · 2ᵉ édition', place:'Aéroport',
-   text:'12 000 personnes, sold out. Tipi Stage et première scène AMOR.', who:['Chris Stussy','Prospa','AMOR','Matisa']},
-  {id:'dune25b', post:'', ico:'🌴', when:'13 juil. 2025', title:'La Dune · édition d\'été', place:'Club',
-   text:'Retour à La Dune en plein été.', who:['Ben Sterling']},
-  {id:'eiffel25', post:'reel/DRaE1VeDFRh', ico:'🗼', when:'25 mai 2025', title:'Tour Eiffel, 1er étage', place:'Tour Eiffel',
-   text:'Sunday Music prend le premier étage de la Tour Eiffel.', who:['Carlita']},
-  {id:'dune25', post:'', ico:'🌞', when:'20 avr. 2025', title:'La Dune × Terrazza', place:'Club',
+const EDITIONS = [  // Shotgun (organisateur Sunday Music) + légendes Instagram, relevés le 21/10/2026
+  {post:'p/DdRqsyQDLav', ico:'✈️', when:'13 sept. 2026', title:'Aéroport de Montpellier · 3ᵉ édition', place:'Aéroport',
+   text:'15 000 personnes sur le tarmac, de 11 h à 23 h. After au Club Casita jusqu\'à 3 h.', who:['ANOTR','AMOR','Silvie Loto','ALCI','Casa Mata','Soubeiran','Tibo KSRG','Mathis Bouloc']},
+  {post:'p/DafYP3FjNie', ico:'🏟️', when:'5 juil. 2026', title:'Arènes de Lunel', place:'Arènes',
+   text:'Mochakk dans les arènes de la ville de Sunday, de 13 h à 23 h. Déjà 8 000 inscrits fin avril.', who:['Mochakk','Soubeiran','Mathis Bouloc','Tibo KSRG','Solarce Brothers','Mamba Skar']},
+  {post:'p/DYNN6ljDIyL', ico:'🎻', when:'8 mai 2026', title:'Arènes de Nîmes × Garten Project', place:'Arènes',
+   text:'Black Coffee en live avec orchestre, sold out : 14 000 danseurs.', who:['Black Coffee','Djeff','Soubeiran','Orsay','Terev']},
+  {post:'reel/DUnLV0XDP35', ico:'🌞', when:'5 avr. 2026', title:'La Dune × Terrazza · 4ᵉ édition', place:'Club',
+   text:'Club, patio et rooftop Terrazza, de 11 h à minuit.', who:['Claptone','Soubeiran','Tibo KSRG','Mathis Bouloc','Casa Mata']},
+  {post:'p/DUlcmVzDKdA', ico:'🏠', when:'8 févr. 2026', title:'Origins by Sunday · Clos de Provence', place:'Clos de Provence',
+   text:'Retour en petit comité, comme à nos débuts. Sold out.', who:['Soubeiran','Tibo KSRG','Mathis Bouloc','Franc Fala','Greg Herma','Benji Ben']},
+  {post:'p/DS2uA6mjLbv', ico:'❤️‍🔥', when:'14 déc. 2025', title:'Clos de Provence 2025', place:'Clos de Provence',
+   text:'La dernière date de 2025.', who:['Jamback','Soubeiran','Tibo KSRG','Mathis Bouloc','Alauze','Black Accord']},
+  {post:'p/DOti-fTjOup', ico:'✈️', when:'14 sept. 2025', title:'Aéroport de Montpellier · 2ᵉ édition', place:'Aéroport',
+   text:'12 000 personnes, sold out.', who:['Chris Stussy','Prospa','AMOR','Matisa','Soubeiran']},
+  {post:'', ico:'🏖️', when:'20 juil. 2025', title:'Beach Edition · Port-Barcarès', place:'Plage',
+   text:'Les pieds dans le sable, à Ginette Plage.', who:['Paco Osuna','Soubeiran','Tibo KSRG','Mathis Bouloc']},
+  {post:'', ico:'🌴', when:'13 juil. 2025', title:'La Dune × Terrazza · édition d\'été', place:'Club',
+   text:'De 13 h à 2 h, en plein été.', who:['Ben Sterling','Peace Control','Adam Trigger','Soubeiran']},
+  {post:'reel/DRaE1VeDFRh', ico:'🗼', when:'25 mai 2025', title:'Tour Eiffel, 1er étage', place:'Tour Eiffel',
+   text:'Une nuit au premier étage de la Tour Eiffel.', who:['Carlita']},
+  {post:'', ico:'🎧', when:'17 mai 2025', title:'Boiler Room · Arènes de Lunel', place:'Arènes',
+   text:'« Père & Fils » : Benji Ben b2b Soubeiran.', who:['Benji Ben','Soubeiran','Thöm','Greg Herma']},
+  {post:'', ico:'🌞', when:'20 avr. 2025', title:'La Dune × Terrazza', place:'Club',
    text:'Club, rooftop et patio, de jour.', who:['Alex Wann','Cosmic Boys','Soubeiran','Tibo KSRG','Mathis Bouloc']},
-  {id:'airport24', post:'p/DB9RSIzIHTp', ico:'✈️', when:'2024', title:'Aéroport de Montpellier · 1ʳᵉ édition', place:'Aéroport',
-   text:'La première sur le tarmac : plus de 9 000 personnes, sold out.', who:[]},
+  {post:'', ico:'🍷', when:'16 févr. 2025', title:'Clos de Provence', place:'Clos de Provence',
+   text:'Un dimanche d\'hiver au Clos de Provence.', who:['Soubeiran','Toman','Mathis Bouloc','Tibo KSRG']},
+  {post:'p/DB9RSIzIHTp', ico:'✈️', when:'15 sept. 2024', title:'Aéroport de Montpellier · 1ʳᵉ édition', place:'Aéroport',
+   text:'La toute première à l\'aéroport.', who:['PAWSA','Cosmic Boys','Chicks Luv Us','Soubeiran']},
+  {post:'', ico:'🏟️', when:'7 juil. 2024', title:'Arènes de Lunel 2024', place:'Arènes',
+   text:'Le festival dans les arènes de Lunel.', who:[]},
+  {post:'', ico:'🌞', when:'7 avr. 2024', title:'La Dune × Terrazza · 1ʳᵉ édition', place:'Club',
+   text:'La première à La Dune.', who:['Soubeiran','Mathis Bouloc','Tibo KSRG']},
 ];
+// Prochaine date : null tant que rien n'est annoncé (Shotgun : « aucun évènement à venir » le 21/10/2026).
+// Le jour où une date sort : {date: '2027-04-04T13:00', title: '…', url: 'https://shotgun.live/…'} → compte à rebours + « Ajouter à l'agenda ».
+const NEXT = null;
+const LAST = {date: '13 septembre 2026', title: 'Aéroport de Montpellier', note: '15 000 personnes'};
 
 const LEVELS = [[0,'Curieux·se','Coche les éditions où tu étais.'],[1,'Newcomer','Bienvenue dans la famille.'],
   [3,'Regular','Tu connais le chemin du dimanche.'],[5,'Sunday Family','Tu fais partie des murs.'],[8,'Légende','Tu as tout fait. Respect.']];
@@ -574,14 +591,14 @@ const ARTISTS = [
   {n:'Mochakk', ig:'mochakk', ed:'Lunel 2026', head:1},
   {n:'Chris Stussy', ig:'chrisstussydj', ed:'Aéroport 2025', head:1},
   {n:'Claptone', ed:'La Dune 2026', head:1},
-  {n:'Soubeiran', ig:'soubeiran00', ed:'Sunday Crew · Aéroport 2026 · Lunel 2026 · La Dune 2026 · Aéroport 2025 · La Dune 2025'},
+  {n:'Soubeiran', ig:'soubeiran00', ed:'Sunday Crew · Aéroport 2026 · Lunel 2026 · Nîmes 2026 · La Dune 2026 · Aéroport 2025 · La Dune 2025'},
   {n:'Tibo KSRG', ig:'tibo_ksrg', ed:'Sunday Crew · Aéroport 2026 · Lunel 2026 · La Dune 2026 · Aéroport 2025 · La Dune 2025'},
   {n:'Mathis Bouloc', ed:'Sunday Crew · Aéroport 2026 · Lunel 2026 · La Dune 2026 · Aéroport 2025 · La Dune 2025'},
   {n:'Carlita', ig:'carlitamusic', ed:'Tour Eiffel 2025'},
   {n:'Prospa', ed:'Aéroport 2025'},
   {n:'Ben Sterling', ed:'La Dune 2025'},
   {n:'Alex Wann', ed:'La Dune 2025'},
-  {n:'Cosmic Boys', ed:'La Dune 2025'},
+  {n:'Cosmic Boys', ed:'La Dune 2025 · Aéroport 2024'},
   {n:'AMOR', ig:'this_is_amor', ed:'Aéroport 2026 · Aéroport 2025'},
   {n:'Silvie Loto', ig:'silvieloto', ed:'Aéroport 2026'},
   {n:'ALCI', ig:'alcimusiq', ed:'Aéroport 2026'},
@@ -625,24 +642,30 @@ const ARTISTS = [
   {n:'Hugo Brancato', ed:'La Dune 2025'},
   {n:'Lucas Villanova', ed:'La Dune 2025'},
   {n:'Hugo Cstln', ed:'La Dune 2025'},
-  {n:'PAWSA', ed:'Éditions précédentes'},
-  {n:'Francis Mercier', ed:'Éditions précédentes'},
-  {n:'Kölsch', ed:'Éditions précédentes'},
+  {n:'PAWSA', ed:'Aéroport 2024'},
+  {n:'Chicks Luv Us', ed:'Aéroport 2024'},
+  {n:'Djeff', ed:'Nîmes 2026'},
+  {n:'Orsay', ed:'Nîmes 2026'},
+  {n:'Terev', ed:'Nîmes 2026'},
+  {n:'Paco Osuna', ed:'Port-Barcarès 2025'},
+  {n:'Benji Ben', ed:'Lunel 2025 · Clos de Provence 2026'},
+  {n:'Francis Mercier', ed:'Montpellier 2023'},
+  {n:'Kölsch', ed:'Lunel 2023'},
   {n:'Nitefreak', ed:'Éditions précédentes'},
-  {n:'Franc Fala', ed:'Éditions précédentes'},
-  {n:'Ahmed Spins', ed:'Éditions précédentes'},
+  {n:'Franc Fala', ed:'Clos de Provence 2026'},
+  {n:'Ahmed Spins', ed:'Montpellier 2023'},
 ];
-const SETS = [['13:00','Soubeiran'],['15:00','ALCI'],['17:00','Silvie Loto'],['19:00','AMOR'],['21:00','ANOTR'],['23:00','Casa Mata']];
+const SETS = [['11:00','Début, sur le tarmac'],['22:00','After party au Club Casita'],['23:00','Fin du festival'],['03:00','Fin de l\'after']];  // Shotgun, 13/09/2026
 const POLL = [['Keinemusik', 412], ['Peggy Gou', 365], ['Solomun', 298], ['Retour de Mochakk', 240]];
-const PHOTOS = [
+const PHOTOS = [  // légendes = ce qu'on voit sur la photo (vérifié le 21/10/2026)
   ['051fa4af-6f0b-48d3-ab93-c749a5eb79b0/_N8A9249-2.jpg', 'sur le tarmac ✈️'],
-  ['61d46db6-b157-434e-bf2e-550b717157a6/SUNDAYMUSICFESTIVAL-%40jordanmarchand_cv-71.jpg', 'golden hour'],
-  ['aa1f3e7e-3545-4cb3-9db9-4626d7ad7e07/_N8A9383.jpg', 'les mains en l\'air'],
-  ['a2655d93-ec45-4fbe-9fea-736eb684862b/101A3481.jpg', 'dimanche soir'],
-  ['56424aad-3a1a-4f23-99f7-48d88efbeee6/101A5266.jpg', 'la bande'],
-  ['c4e222a5-7129-486c-bf97-253d92a4f5c9/IMG_2219+enzo+%281%29-min.jpeg', 'au soleil ☀️'],
-  ['16ed2f38-80c1-45b9-b437-621e23046665/_N8A9472.png', 'derrière les platines'],
-  ['de40f721-1123-4b5f-84cc-c42a586785ea/Untitled+design+%2844%29+%281%29.png', 'Sunday Family'],
+  ['61d46db6-b157-434e-bf2e-550b717157a6/SUNDAYMUSICFESTIVAL-%40jordanmarchand_cv-71.jpg', 'dans les arènes'],
+  ['aa1f3e7e-3545-4cb3-9db9-4626d7ad7e07/_N8A9383.jpg', 'derrière les platines'],
+  ['a2655d93-ec45-4fbe-9fea-736eb684862b/101A3481.jpg', 'au soleil ☀️'],
+  ['56424aad-3a1a-4f23-99f7-48d88efbeee6/101A5266.jpg', 'la nuit tombe'],
+  ['c4e222a5-7129-486c-bf97-253d92a4f5c9/IMG_2219+enzo+%281%29-min.jpeg', 'en club'],
+  ['16ed2f38-80c1-45b9-b437-621e23046665/_N8A9472.png', 'golden hour'],
+  ['de40f721-1123-4b5f-84cc-c42a586785ea/Untitled+design+%2844%29+%281%29.png', 'Tour Eiffel 🗼'],
 ];
 const CDN = 'https://images.squarespace-cdn.com/content/v1/6718c510635b096b569c1647/';
 const $ = s => document.querySelector(s);
@@ -651,22 +674,20 @@ const store = (k, v) => { try { return v === undefined ? localStorage.getItem(k)
 let toastT;
 function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 3200); }
 
-// Compte à rebours jusqu'au prochain dimanche 13 h (comme dans l'app)
-function nextSunday(now) {
-  const d = new Date(now); d.setHours(13, 0, 0, 0);
-  d.setDate(d.getDate() + (7 - d.getDay()) % 7);
-  if (d <= now) d.setDate(d.getDate() + 7);
-  return d;
+// Héro : compte à rebours vers la prochaine date annoncée (NEXT), sinon la dernière édition
+const pad = n => String(n).padStart(2, '0');
+function parts(ms) { const s = Math.max(0, Math.floor(ms / 1000)); return [Math.floor(s / 86400), pad(Math.floor(s / 3600) % 24), pad(Math.floor(s / 60) % 60), pad(s % 60)]; }
+const nextDate = NEXT && new Date(NEXT.date) > new Date() ? new Date(NEXT.date) : null;
+function tick() { parts(nextDate - new Date()).forEach((v, i) => $(['#cd-d', '#cd-h', '#cd-m', '#cd-s'][i]).textContent = v); }
+function ics(n) {  // fichier agenda .ics de la prochaine date
+  const f = d => d.toISOString().replace(/[-:]/g, '').slice(0, 15) + 'Z', d = new Date(n.date);
+  return 'data:text/calendar;charset=utf-8,' + encodeURIComponent(['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Sunday Music//FR', 'BEGIN:VEVENT', 'UID:' + f(d) + '@sundaymusic',
+    'DTSTAMP:' + f(new Date()), 'DTSTART:' + f(d), 'DTEND:' + f(new Date(+d + 10 * 3600e3)), 'SUMMARY:Sunday Music · ' + n.title, 'URL:' + (n.url || ''), 'END:VEVENT', 'END:VCALENDAR'].join('\r\n'));
 }
-function tick() {
-  const s = Math.floor((nextSunday(new Date()) - new Date()) / 1000);
-  const pad = n => String(n).padStart(2, '0');
-  $('#cd-d').textContent = Math.floor(s / 86400);
-  $('#cd-h').textContent = pad(Math.floor(s / 3600) % 24);
-  $('#cd-m').textContent = pad(Math.floor(s / 60) % 60);
-  $('#cd-s').textContent = pad(s % 60);
-}
-tick(); setInterval(tick, 1000);
+if (nextDate) {
+  $('#cd').hidden = false; tick(); setInterval(tick, 1000);
+  $('#nextbox').innerHTML = `<b>${esc(NEXT.title)}</b><span>${nextDate.toLocaleDateString('fr-FR', {weekday: 'long', day: 'numeric', month: 'long'})} · <a href="${ics(NEXT)}" download="sunday-music.ics">+ Agenda</a>${NEXT.url ? ` · <a href="${esc(NEXT.url)}" target="_blank" rel="noopener">Billets</a>` : ''}</span>`;
+} else $('#nextbox').innerHTML = `<span>Prochaine date : bientôt annoncée</span><b>Dernière : ${esc(LAST.title)}</b><span>${esc(LAST.date)} · ${esc(LAST.note)}</span>`;
 
 // Défilé des artistes (doublé pour boucler sans saut)
 const names = ARTISTS.slice(0, 20).map(a => `<span>${esc(a.n)}</span>`).join('');
@@ -777,13 +798,13 @@ $('#poll').onclick = e => { const b = e.target.closest('.opt'); if (b) { store('
 renderPoll();
 
 // Pré-inscription (démo : reste sur l'appareil)
-function presaleDone() { $('#presale').innerHTML = `<div class="ok">C'est noté ☀️</div><p style="text-align:center">Tu seras prévenu·e avant l'ouverture des préventes Clos de Provence.</p>`; }
+function presaleDone() { $('#presale').innerHTML = `<div class="ok">C'est noté ☀️</div><p style="text-align:center">Tu seras prévenu·e dès que la prochaine date est annoncée.</p>`; }
 if (store('sunday-presale') === '1') presaleDone();
 $('#presale').onsubmit = e => {
   e.preventDefault();
   store('sunday-presale', '1');
   if ($('#wait').checked) store('sunday-waitlist', '1');
-  presaleDone(); toast('Pré-inscription enregistrée (démo)');
+  presaleDone(); toast('Inscription enregistrée (démo)');
 };
 
 // Compteurs animés
@@ -791,7 +812,7 @@ function countUp(el) {
   const to = +el.dataset.count, dec = +(el.dataset.dec || 0), suf = el.dataset.suf || '', t0 = performance.now();
   const step = t => {
     const k = Math.min(1, (t - t0) / 1600), v = to * (1 - Math.pow(1 - k, 3));
-    el.textContent = v.toLocaleString('fr-FR', {minimumFractionDigits: dec, maximumFractionDigits: dec}) + suf;
+    el.textContent = v.toLocaleString('fr-FR', {minimumFractionDigits: dec, maximumFractionDigits: dec, useGrouping: to < 1900 || to > 2100}) + suf;  // une année s'écrit sans espace
     if (k < 1) requestAnimationFrame(step);
   };
   requestAnimationFrame(step);
@@ -822,11 +843,10 @@ $('#links').onclick = () => nav.classList.remove('open');
 
 // Auto-test : ?test → console « selftest ok »
 if (location.search.includes('test')) {
-  const sun = nextSunday(new Date(2026, 9, 21, 12));            // mercredi
-  console.assert(sun.getDay() === 0 && sun.getDate() === 25 && sun.getHours() === 13, 'dimanche suivant');
-  console.assert(nextSunday(new Date(2026, 9, 25, 14)).getDate() === 1, 'dimanche passé 13 h → semaine suivante');
-  console.assert(nextSunday(new Date(2026, 9, 25, 9)).getDate() === 25, 'dimanche matin → même jour');
-  console.assert(lineup('Nîmes 2026').length === 1 && lineup('').length === ARTISTS.length, 'filtre line-up');
+  console.assert(parts(90061000).join(' ') === '1 01 01 01' && parts(-5).join(' ') === '0 00 00 00', 'compte à rebours');
+  console.assert(NEXT ? !$('#cd').hidden : $('#cd').hidden && /bientôt annoncée/.test($('#nextbox').textContent), 'pas de compte à rebours sans date annoncée');
+  console.assert(!/dimanche, 13 h/.test(document.body.innerText) && !/Clos de Provence/.test($('#preventes').innerText) && getComputedStyle($('#cd')).display === (NEXT ? 'flex' : 'none'), 'plus de fausse prochaine édition');
+  console.assert(lineup('Nîmes 2026').length === 5 && lineup('').length === ARTISTS.length, 'filtre line-up');
   console.assert(document.querySelectorAll('.ed').length === EDITIONS.length, 'éditions');
   setTimeout(() => { console.assert($('#igPosts').children.length === 9 && $('#igStories').children.length > 0, 'instagram'); console.log('selftest ok'); }, 1500);
 }
