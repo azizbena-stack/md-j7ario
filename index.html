@@ -1,0 +1,835 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Sunday Music · Montpellier</title>
+<meta name="description" content="Sunday Music : la house au soleil, le dimanche. Éditions, line-up, photos, infos pratiques et préventes.">
+<meta name="theme-color" content="#2c6ab5">
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,800;1,9..144,500;1,9..144,800&family=Manrope:wght@400;600;800&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<style>
+/* Même DA que l'app : photo argentique, golden hour, crème / orange / bleu nuit */
+:root{
+  --bg:#f4ecdf; --card:#fffaf1; --ink:#1d1814; --mute:#7a6a5c; --line:#e3d5c1;
+  --sun:#f3b259; --orange:#e2672f; --terra:#a5583a; --sky:#8fb9d8; --wood:#5e4130; --night:#151a2a;
+  --serif:'Fraunces',Georgia,serif; --sans:'Manrope',system-ui,sans-serif; --hand:'Caveat',cursive;
+  --p:0; /* avancement du défilement dans le hero (0 → 1), posé par le JS */
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-padding-top:70px;overflow-x:clip}
+body{background:var(--bg);color:var(--ink);font:16px/1.55 var(--sans);overflow-x:hidden}
+body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:99;opacity:.08;mix-blend-mode:multiply;
+  background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+a{color:inherit}
+img{display:block;max-width:100%}
+h1,h2,h3{font-family:var(--serif);font-weight:800;line-height:1.02;letter-spacing:-.015em}
+h2{font-size:clamp(38px,6vw,68px);margin:6px 0 18px}
+h2 em,h3 em{font-weight:500;color:var(--orange)}
+.kicker{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--terra)}
+.hand{font-family:var(--hand);font-weight:700}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+.sec{padding:110px 0}
+.lead{font-size:19px;color:var(--mute);max-width:620px}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:99px;padding:14px 22px;font:800 15px var(--sans);background:var(--ink);color:var(--bg);text-decoration:none;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(29,24,20,.2)}
+.btn.sun{background:var(--orange);color:#fff}
+.btn.ghost{background:transparent;color:inherit;border:1.5px solid currentColor}
+.chip{border:1.5px solid var(--line);background:var(--card);border-radius:99px;padding:8px 15px;font:700 14px var(--sans);color:var(--ink);cursor:pointer;transition:.2s}
+.chip.on,.chip:hover{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+
+/* Apparitions au défilement */
+.rv{opacity:0;transform:translateY(40px);transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.rv.in{opacity:1;transform:none}
+.rv.d1{transition-delay:.12s}.rv.d2{transition-delay:.24s}.rv.d3{transition-delay:.36s}
+
+/* Bandeau démo + nav */
+.demo{background:var(--ink);color:#d9cbb6;text-align:center;font-size:11px;letter-spacing:.1em;text-transform:uppercase;padding:6px 16px;position:relative;z-index:60}
+nav{position:fixed;top:26px;left:0;right:0;z-index:50;transition:top .3s,background .3s,box-shadow .3s}
+nav.solid{top:0;background:rgba(244,236,223,.88);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 1px 0 var(--line)}
+nav .wrap{display:flex;align-items:center;gap:22px;height:64px}
+nav .logo img{height:26px;width:auto;filter:brightness(0) invert(1);transition:filter .3s}
+nav.solid .logo img{filter:brightness(0)}
+nav .links{display:flex;gap:22px;margin-left:auto}
+nav .links a{color:#fff;text-decoration:none;font-weight:700;font-size:14px;transition:color .3s}
+nav.solid .links a{color:var(--ink)}
+nav .links a:hover{color:var(--orange)!important}
+nav .btn{padding:10px 16px;font-size:13px}
+.eq{display:inline-flex;gap:2px;align-items:flex-end;height:14px}
+.eq i{width:3px;background:currentColor;border-radius:2px;animation:eq 1s ease-in-out infinite}
+.eq i:nth-child(2){animation-delay:-.3s}.eq i:nth-child(3){animation-delay:-.6s}.eq i:nth-child(4){animation-delay:-.15s}
+@keyframes eq{0%,100%{height:30%}50%{height:100%}}
+.burger{display:none;margin-left:auto;background:none;border:0;color:#fff;font-size:26px;cursor:pointer}
+nav.solid .burger{color:var(--ink)}
+
+/* HERO : ciel de fin de journée, le soleil se couche quand on défile */
+.hero{position:relative;height:100vh;min-height:640px;overflow:hidden;color:#fff;display:grid;place-items:center;text-align:center;
+  background:linear-gradient(180deg,
+    color-mix(in srgb,#2c6ab5,#151a2a calc(var(--p)*70%)) 0%,
+    color-mix(in srgb,#5b92cb,#3b2f4a calc(var(--p)*70%)) 32%,
+    color-mix(in srgb,#c8b9a7,#c4553a calc(var(--p)*60%)) 58%,
+    #f2b06a 78%,#e2672f 100%)}
+.sunball{position:absolute;left:50%;bottom:calc(-180px - var(--p)*260px);width:min(520px,90vw);aspect-ratio:1;border-radius:50%;transform:translateX(-50%);
+  background:radial-gradient(circle,#fff3d6 0%,#ffd38a 30%,rgba(255,180,100,.5) 52%,rgba(255,180,100,0) 70%);animation:pulse 6s ease-in-out infinite}
+@keyframes pulse{50%{filter:brightness(1.12);scale:1.04}}
+.cloud{position:absolute;height:40px;border-radius:40px;background:rgba(255,255,255,.55);filter:blur(10px);animation:drift linear infinite}
+@keyframes drift{from{transform:translateX(-30vw)}to{transform:translateX(130vw)}}
+.plane{position:absolute;top:22%;left:0;display:flex;align-items:center;gap:0;white-space:nowrap;animation:fly 22s linear infinite;font-size:34px}
+.plane span{font:800 13px var(--sans);letter-spacing:.2em;background:#fff8ec;color:var(--orange);padding:6px 14px;border-radius:3px;box-shadow:0 2px 8px rgba(0,0,0,.15);margin-right:6px;animation:flag 1s ease-in-out infinite}
+.plane:before{content:"";width:40px;border-top:1px dashed rgba(255,255,255,.8);order:1;margin:0 4px}
+.plane b{order:2;display:inline-block;transform:rotate(35deg)}
+@keyframes fly{from{transform:translateX(-120%) translateY(20px)}to{transform:translateX(110vw) translateY(-60px)}}
+@keyframes flag{50%{transform:skewY(-3deg)}}
+.hero-in{position:relative;z-index:2;padding:0 20px;transform:translateY(calc(var(--p)*-80px));opacity:calc(1 - var(--p)*1.2)}
+.hero .wordmark{width:min(720px,88vw);height:auto;margin:0 auto;filter:brightness(0) invert(1) drop-shadow(0 4px 20px rgba(20,40,80,.35));animation:pop 1.4s cubic-bezier(.2,.8,.2,1) both}
+@keyframes pop{from{opacity:0;transform:translateY(30px) scale(.94);filter:brightness(0) invert(1) blur(12px)}}
+.hero .tag{font-family:var(--hand);font-size:clamp(30px,4.5vw,46px);transform:rotate(-2deg);margin-top:4px;animation:pop 1.4s .4s both}
+.countdown{display:flex;gap:10px;justify-content:center;margin:34px 0 10px;animation:pop 1.2s .7s both}
+.countdown div{background:rgba(255,250,241,.2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.35);border-radius:16px;padding:12px 4px;flex:0 1 84px;min-width:0}
+.countdown b{display:block;font:800 34px var(--serif);font-variant-numeric:tabular-nums}
+.countdown span{font-size:10px;text-transform:uppercase;letter-spacing:.12em}
+.hero small{display:block;font-weight:700;font-size:13px;opacity:.95;animation:pop 1.2s .8s both}
+.hero .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px;animation:pop 1.2s 1s both}
+.hero .ctas .btn.ghost{color:#fff}
+.scroll{position:absolute;bottom:26px;left:50%;transform:translateX(-50%);z-index:2;width:26px;height:42px;border:2px solid rgba(255,255,255,.8);border-radius:20px}
+.scroll:after{content:"";position:absolute;left:50%;top:8px;width:4px;height:8px;margin-left:-2px;border-radius:2px;background:#fff;animation:wheel 1.6s infinite}
+@keyframes wheel{to{transform:translateY(14px);opacity:0}}
+
+/* Défilé des artistes */
+.marquee{background:var(--ink);color:var(--bg);overflow:hidden;padding:18px 0;transform:rotate(-1.5deg);margin:-14px -20px 0;position:relative;z-index:3}
+.marquee .track{display:flex;width:max-content;animation:scrollx 40s linear infinite}
+.marquee:hover .track{animation-play-state:paused}
+.marquee span{font:800 30px var(--serif);padding:0 22px;white-space:nowrap}
+.marquee span:nth-child(even){font-style:italic;font-weight:500;color:var(--sun)}
+@keyframes scrollx{to{transform:translateX(-50%)}}
+
+/* Chiffres */
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+.stat{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:28px 20px;text-align:center}
+.stat b{display:block;font:800 clamp(36px,4.5vw,54px) var(--serif);color:var(--orange);font-variant-numeric:tabular-nums}
+.stat span{color:var(--mute);font-size:14px}
+.story{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
+.story p+p{margin-top:14px}
+.polas{position:relative;height:440px}
+.pola{position:absolute;background:#fffdf7;padding:12px 12px 46px;box-shadow:0 18px 40px rgba(60,40,20,.22);width:58%;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
+.pola img{width:100%;aspect-ratio:1;object-fit:cover;background:linear-gradient(135deg,var(--sky),var(--sun))}
+.pola span{position:absolute;left:0;right:0;bottom:10px;text-align:center;font:700 22px var(--hand);color:var(--wood)}
+.polas .pola:nth-child(1){left:0;top:20px;transform:rotate(-7deg)}
+.polas .pola:nth-child(2){right:0;top:0;transform:rotate(6deg)}
+.polas .pola:nth-child(3){left:22%;top:150px;transform:rotate(-1deg)}
+.polas .pola:hover{transform:rotate(0) scale(1.06);z-index:5}
+
+/* Éditions : frise */
+.editions{background:var(--night);color:#f4ecdf;position:relative;overflow:hidden}
+.editions .kicker{color:var(--sun)}
+.editions .lead{color:#b7ad9e}
+.stars{position:absolute;inset:0;background-image:radial-gradient(1.5px 1.5px at 20% 30%,#fff8,transparent),radial-gradient(1px 1px at 70% 20%,#fff9,transparent),radial-gradient(1.5px 1.5px at 40% 80%,#fff6,transparent),radial-gradient(1px 1px at 85% 65%,#fff8,transparent),radial-gradient(1px 1px at 10% 70%,#fff7,transparent);background-size:300px 300px;animation:twinkle 5s ease-in-out infinite alternate;pointer-events:none}
+@keyframes twinkle{to{opacity:.4}}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin:26px 0 34px}
+.editions .chip{background:transparent;color:#f4ecdf;border-color:#3a4060}
+.editions .chip.on,.editions .chip:hover{background:var(--sun);color:var(--ink);border-color:var(--sun)}
+.timeline{position:relative;display:grid;gap:22px;padding-left:34px}
+.timeline:before{content:"";position:absolute;left:10px;top:0;bottom:0;width:2px;background:linear-gradient(var(--sun),var(--orange),transparent)}
+.ed{position:relative;display:grid;grid-template-columns:auto 1fr auto;gap:22px;align-items:center;background:rgba(255,255,255,.04);border:1px solid #2b3150;border-radius:22px;padding:22px 24px;transition:background .3s,transform .3s}
+.ed:hover{background:rgba(243,178,89,.08);transform:translateX(6px)}
+.ed:before{content:"";position:absolute;left:-30px;top:50%;width:14px;height:14px;margin-top:-7px;border-radius:50%;background:var(--sun);box-shadow:0 0 0 5px rgba(243,178,89,.2)}
+.ed .ico{font-size:38px}
+.ed h3{font-size:24px}
+.ed time{font:700 13px var(--sans);color:var(--sun);letter-spacing:.06em;text-transform:uppercase}
+.ed p{color:#b7ad9e;font-size:15px;margin-top:4px}
+.ed .who{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.ed .who span{font-size:12px;font-weight:700;border:1px solid #3a4060;border-radius:99px;padding:3px 10px}
+.ed a{color:var(--sun);font-weight:800;font-size:13px;text-decoration:none;white-space:nowrap}
+.ed.hide{display:none}
+
+/* Line-up */
+.heads{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:30px 0 26px}
+.head{position:relative;aspect-ratio:3/4;border-radius:22px;overflow:hidden;display:flex;align-items:flex-end;padding:16px;color:#fff;text-decoration:none;
+  background:linear-gradient(170deg,var(--c1),var(--c2));transition:transform .4s cubic-bezier(.2,.8,.2,1)}
+.head:before{content:attr(data-i);position:absolute;top:-10px;right:-6px;font:800 140px/1 var(--serif);opacity:.18}
+.head:hover{transform:translateY(-8px) rotate(-1.5deg)}
+.head b{font:800 26px/1 var(--serif);position:relative}
+.head small{display:block;font-size:12px;opacity:.85;margin-top:4px}
+.tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.tags a,.tags span{border:1.5px solid var(--line);background:var(--card);border-radius:99px;padding:7px 14px;font-weight:700;font-size:14px;text-decoration:none;transition:.25s;animation:fadein .4s both}
+.tags a:hover{background:var(--orange);border-color:var(--orange);color:#fff}
+.tags .crew{border-color:var(--orange);color:var(--terra)}
+@keyframes fadein{from{opacity:0;transform:scale(.9)}}
+select{font:700 14px var(--sans);padding:9px 14px;border-radius:99px;border:1.5px solid var(--line);background:var(--card);color:var(--ink)}
+
+/* Galerie */
+.gallery{columns:4 220px;column-gap:18px;margin-top:34px}
+.gallery figure{break-inside:avoid;margin-bottom:18px;background:#fffdf7;padding:10px 10px 40px;box-shadow:0 10px 28px rgba(60,40,20,.15);position:relative;cursor:zoom-in;transition:transform .4s}
+.gallery figure:nth-child(odd){transform:rotate(-1.5deg)}
+.gallery figure:nth-child(even){transform:rotate(1.5deg)}
+.gallery figure:hover{transform:rotate(0) scale(1.03);z-index:2}
+.gallery img{width:100%;height:auto;background:linear-gradient(135deg,var(--sky),var(--sun));min-height:160px;object-fit:cover}
+.gallery figcaption{position:absolute;bottom:8px;left:0;right:0;text-align:center;font:700 21px var(--hand);color:var(--wood)}
+.credit{font-size:12px;color:var(--mute);margin-top:6px}
+.lightbox{position:fixed;inset:0;background:rgba(21,26,42,.92);z-index:200;display:none;place-items:center;padding:30px;cursor:zoom-out}
+.lightbox.on{display:grid;animation:fadein .3s}
+.lightbox img{max-height:86vh;width:auto;border:10px solid #fffdf7;box-shadow:0 20px 60px #000a}
+
+/* Jour J */
+.dday{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:34px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:26px;padding:28px}
+.card h3{font-size:26px;margin-bottom:14px}
+.set{display:grid;grid-template-columns:64px 1fr auto;align-items:center;gap:12px;padding:12px 0;border-bottom:1px dashed var(--line)}
+.set:last-child{border:0}
+.set time{font:800 15px var(--sans);color:var(--terra);font-variant-numeric:tabular-nums}
+.set b{font:800 20px var(--serif)}
+.set .bar{height:6px;border-radius:6px;background:linear-gradient(90deg,var(--sun),var(--orange));transform-origin:left;transform:scaleX(0);transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
+.in .set .bar{transform:scaleX(1)}
+.infos{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.info{display:flex;gap:12px;align-items:flex-start}
+.info span{font-size:26px}
+.info p{font-size:14px;color:var(--mute)}
+details{border-bottom:1px solid var(--line);padding:16px 0}
+details summary{cursor:pointer;font-weight:800;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:14px}
+details summary::-webkit-details-marker{display:none}
+details summary:after{content:"+";font:500 26px/1 var(--serif);color:var(--orange);transition:transform .3s}
+details[open] summary:after{transform:rotate(45deg)}
+details p{color:var(--mute);margin-top:10px;animation:fadein .3s}
+
+/* Prochaine édition */
+.next{background:linear-gradient(160deg,#f2b06a,#e2672f 60%,#a5583a);color:#fff;border-radius:40px;padding:70px clamp(24px,5vw,70px);position:relative;overflow:hidden;display:grid;grid-template-columns:1.2fr 1fr;gap:50px;align-items:center}
+.next .kicker{color:#fff3d6}
+.next:before{content:"";position:absolute;right:-120px;top:-120px;width:400px;height:400px;border-radius:50%;background:radial-gradient(circle,#fff3d6aa,transparent 65%);animation:pulse 6s infinite}
+.next form{position:relative;background:rgba(255,250,241,.16);border:1px solid rgba(255,255,255,.35);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:26px;padding:26px;display:grid;gap:12px}
+.next input[type=email]{font:600 16px var(--sans);padding:14px 18px;border-radius:99px;border:0;background:#fffaf1;color:var(--ink)}
+.next label{display:flex;gap:10px;align-items:center;font-size:14px;font-weight:600}
+.next .ok{font-family:var(--hand);font-size:30px;text-align:center;animation:pop .8s both}
+.poll{margin-top:30px}
+.opt{display:block;width:100%;text-align:left;margin-top:8px;border:1.5px solid rgba(255,255,255,.5);background:transparent;color:#fff;border-radius:14px;padding:11px 16px;font:700 15px var(--sans);cursor:pointer;transition:.2s}
+.opt:hover{background:rgba(255,255,255,.18)}
+.hbar{display:grid;grid-template-columns:150px 1fr 48px;gap:10px;align-items:center;margin-top:8px;font-size:14px;font-weight:700}
+.hbar i{height:12px;border-radius:12px;background:#fff3d6;transform-origin:left;animation:grow 1s cubic-bezier(.2,.8,.2,1) both}
+.hbar.me i{background:var(--night)}
+@keyframes grow{from{transform:scaleX(0)}}
+
+/* Musique + app */
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center}
+.vinyl{width:min(360px,80%);aspect-ratio:1;border-radius:50%;margin:0 auto;position:relative;
+  background:radial-gradient(circle,var(--orange) 0 15%,#111 15.5% 17%,#1d1814 17% 100%),repeating-radial-gradient(circle,#0000 0 3px,#ffffff10 3px 4px);
+  background-blend-mode:normal;box-shadow:0 30px 60px rgba(0,0,0,.3);animation:spin 6s linear infinite}
+.vinyl:after{content:"";position:absolute;inset:0;border-radius:50%;background:repeating-radial-gradient(circle at center,#0000 0 2px,#ffffff0d 2px 3px),conic-gradient(from 30deg,#fff0,#fff2 10%,#fff0 20%,#fff0 50%,#fff2 60%,#fff0 70%)}
+.vinyl img{position:absolute;width:24%;left:38%;top:38%;border-radius:50%;z-index:1}
+@keyframes spin{to{transform:rotate(360deg)}}
+.spotify{border-radius:18px;width:100%;height:380px;border:0}
+.phone{width:min(280px,100%);margin:0 auto;border-radius:44px;padding:12px;background:var(--ink);box-shadow:0 40px 80px rgba(29,24,20,.35);animation:float 6s ease-in-out infinite}
+.phone img{border-radius:34px;width:100%}
+@keyframes float{50%{transform:translateY(-14px) rotate(1deg)}}
+.ticks{list-style:none;margin:20px 0 26px;display:grid;gap:10px}
+.ticks li:before{content:"☀️ "}
+
+/* Instagram en direct (même principe que le site de la Churascaia) */
+.ighead{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;flex-wrap:wrap}
+.live{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;color:var(--mute);background:var(--card);border:1px solid var(--line);border-radius:99px;padding:7px 14px}
+.live i{width:9px;height:9px;border-radius:50%;background:#2ecc71;box-shadow:0 0 10px #2ecc71;animation:blink 1.6s infinite}
+.live.demo i{background:var(--orange);box-shadow:0 0 10px var(--orange)}
+.live b{background:var(--orange);color:#fff;font-size:10px;letter-spacing:.08em;text-transform:uppercase;border-radius:99px;padding:2px 8px}
+@keyframes blink{50%{opacity:.35}}
+.stories{display:flex;gap:16px;overflow-x:auto;padding:26px 2px 8px;scrollbar-width:none}
+.stories::-webkit-scrollbar{display:none}
+.stories button{flex:none;width:86px;border:0;background:none;cursor:pointer;text-align:center;font:700 12px var(--sans);color:var(--mute)}
+.stories .ring{width:80px;height:80px;margin:0 auto 6px;border-radius:50%;padding:3px;background:conic-gradient(var(--orange),var(--sun),var(--sky),var(--orange));animation:spin 6s linear infinite}
+.stories .ring img{width:100%;height:100%;border-radius:50%;object-fit:cover;border:3px solid var(--bg);animation:spin 6s linear infinite reverse}
+.posts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:22px}
+.posts a{position:relative;aspect-ratio:1;overflow:hidden;border-radius:14px;background:linear-gradient(135deg,var(--sky),var(--sun))}
+.posts img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.posts a:hover img{transform:scale(1.06)}
+.posts span{position:absolute;inset:auto 0 0;padding:34px 12px 10px;background:linear-gradient(transparent,rgba(21,26,42,.85));color:#fff;font-size:13px;font-weight:600;opacity:0;transition:opacity .3s}
+.posts a:hover span{opacity:1}
+.posts .vid,.posts .pin{position:absolute;top:8px;right:10px;color:#fff;font-size:14px;text-shadow:0 1px 4px #0008}
+.posts .pin{right:auto;left:10px}
+.posts .new{position:absolute;top:8px;left:8px;background:var(--orange);color:#fff;font:800 10px var(--sans);letter-spacing:.08em;border-radius:99px;padding:3px 8px}
+#sv{position:fixed;inset:0;z-index:210;background:#000;display:none;align-items:center;justify-content:center;color:#fff}
+#sv.on{display:flex}
+#sv .bar{position:absolute;top:14px;left:14px;right:14px;height:3px;background:rgba(255,255,255,.25);border-radius:3px;overflow:hidden}
+#sv .bar i{display:block;height:100%;width:0;background:#fff}
+#sv.on .bar i{animation:prog 5s linear forwards}
+@keyframes prog{to{width:100%}}
+#sv img,#sv video{max-height:100vh;max-width:100vw;object-fit:contain}
+#sv .who{position:absolute;top:28px;left:16px;display:flex;align-items:center;gap:10px;font-size:14px;font-weight:800}
+#sv .who img{width:34px;height:34px;border-radius:50%}
+#sv .who span{font-weight:600;opacity:.75}
+#sv .x{position:absolute;top:24px;right:16px;font-size:24px;background:none;border:0;color:#fff;cursor:pointer}
+
+/* Barre du bas sur mobile */
+.mbar{display:none}
+
+/* Pied de page */
+footer{background:var(--night);color:#cfc4b4;padding:80px 0 40px;position:relative;overflow:hidden}
+footer .big{font:800 clamp(60px,14vw,200px)/.9 var(--serif);color:#f4ecdf;letter-spacing:-.03em}
+footer .big em{font-weight:500;color:var(--sun)}
+.socials{display:flex;flex-wrap:wrap;gap:10px;margin:36px 0}
+.socials a{border:1.5px solid #3a4060;border-radius:99px;padding:10px 18px;text-decoration:none;font-weight:800;font-size:14px;transition:.25s}
+.socials a:hover{background:var(--sun);color:var(--ink);border-color:var(--sun)}
+.legal{font-size:12px;border-top:1px solid #2b3150;padding-top:20px;color:#8a8170}
+.totop{position:fixed;right:18px;bottom:18px;z-index:40;width:48px;height:48px;border-radius:50%;border:0;background:var(--orange);color:#fff;font-size:20px;cursor:pointer;box-shadow:0 8px 20px rgba(226,103,47,.4);opacity:0;pointer-events:none;transition:.3s}
+.totop.on{opacity:1;pointer-events:auto}
+.toast{position:fixed;left:50%;bottom:24px;transform:translate(-50%,120px);background:var(--ink);color:var(--bg);padding:12px 20px;border-radius:99px;font-weight:700;font-size:14px;z-index:300;transition:transform .4s cubic-bezier(.2,.8,.2,1);max-width:calc(100% - 32px);text-align:center}
+.toast.on{transform:translate(-50%,0)}
+
+@media (max-width:900px){
+  nav .links,nav .wrap>.btn{display:none}
+  .burger{display:block}
+  nav.open .links{display:flex;position:absolute;top:64px;left:0;right:0;flex-direction:column;gap:0;background:var(--bg);box-shadow:0 10px 30px #0002}
+  nav.open .links a{color:var(--ink);padding:14px 20px;border-top:1px solid var(--line)}
+  .story,.dday,.next,.duo{grid-template-columns:minmax(0,1fr)}
+  .hero-in{width:100%}
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .heads{grid-template-columns:repeat(2,1fr)}
+  .heads .head:last-child{grid-column:span 2;aspect-ratio:2/1}
+  .ed{grid-template-columns:auto 1fr}
+  .ed a{grid-column:2}
+  .sec{padding:80px 0}
+  .polas{height:360px}
+  .infos{grid-template-columns:1fr}
+  .hbar{grid-template-columns:110px 1fr 44px}
+  .mbar{display:flex;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:45;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(244,236,223,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 -1px 0 var(--line);transform:translateY(110%);transition:transform .35s}
+  .mbar.on{transform:none}
+  .mbar .btn{flex:1;justify-content:center;padding:12px 10px;font-size:14px}
+  .totop{bottom:84px}
+  .toast{bottom:90px}
+  footer{padding-bottom:110px}
+}
+@media (max-width:520px){
+  .countdown{gap:6px}.countdown b{font-size:26px}.countdown span{font-size:9px;letter-spacing:.05em}
+  .ed{padding:18px;gap:14px}.ed .ico{font-size:30px}
+  .next{padding:44px 18px;border-radius:30px}.next form{padding:18px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*:before,*:after{animation:none!important;transition:none!important}
+  .rv{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
+</head>
+<body>
+
+<div class="demo">Démo · maquette non officielle</div>
+
+<nav id="nav">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Sunday Music, accueil"><img src="logo-wordmark.webp" alt="Sunday Music"></a>
+    <div class="links" id="links">
+      <a href="#histoire">L'esprit</a>
+      <a href="#editions">Éditions</a>
+      <a href="#lineup">Line-up</a>
+      <a href="#insta">Instagram</a>
+      <a href="#photos">Photos</a>
+      <a href="#jourj">Jour J</a>
+      <a href="#musique">Musique</a>
+    </div>
+    <a class="btn sun" href="#preventes"><span class="eq"><i></i><i></i><i></i><i></i></span> Préventes</a>
+    <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">☰</button>
+  </div>
+</nav>
+
+<header class="hero" id="top">
+  <div class="cloud" style="top:14%;width:220px;animation-duration:70s"></div>
+  <div class="cloud" style="top:34%;width:140px;animation-duration:50s;animation-delay:-20s"></div>
+  <div class="cloud" style="top:8%;width:300px;animation-duration:90s;animation-delay:-55s"></div>
+  <div class="plane" aria-hidden="true"><span>SUNDAY MUSIC ☀️</span><b>✈️</b></div>
+  <div class="sunball"></div>
+  <div class="hero-in">
+    <h1><img class="wordmark" src="logo-wordmark.webp" alt="Sunday Music" width="720" height="200"></h1>
+    <p class="tag">Le dimanche, ça se danse au soleil</p>
+    <div class="countdown" aria-label="Compte à rebours jusqu'à dimanche 13 h">
+      <div><b id="cd-d">0</b><span>jours</span></div>
+      <div><b id="cd-h">00</b><span>heures</span></div>
+      <div><b id="cd-m">00</b><span>min</span></div>
+      <div><b id="cd-s">00</b><span>sec</span></div>
+    </div>
+    <small>avant dimanche, 13 h · Montpellier &amp; Occitanie</small>
+    <div class="ctas">
+      <a class="btn sun" href="#preventes">🎫 Me pré-inscrire</a>
+      <a class="btn ghost" href="#editions">Voir les éditions</a>
+    </div>
+  </div>
+  <div class="scroll" aria-hidden="true"></div>
+</header>
+
+<div class="marquee" aria-hidden="true"><div class="track" id="marquee"></div></div>
+
+<section class="sec" id="histoire">
+  <div class="wrap story">
+    <div>
+      <div class="kicker rv">L'esprit Sunday</div>
+      <h2 class="rv d1">De la house, <em>en plein jour.</em></h2>
+      <p class="lead rv d2">Sunday Music, c'est le rendez-vous du dimanche : on arrive en début d'après-midi, on danse au soleil, et la nuit tombe sans qu'on la voie venir.</p>
+      <p class="rv d3" style="margin-top:14px">Un tarmac d'aéroport, des arènes romaines, le premier étage de la Tour Eiffel, des rooftops de club… Chaque édition change de décor, l'énergie reste la même. Et les DJ du Sunday Crew sont toujours là pour ouvrir et fermer la fête.</p>
+    </div>
+    <div class="polas rv d2">
+      <div class="pola"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/6718c510635b096b569c1647/051fa4af-6f0b-48d3-ab93-c749a5eb79b0/_N8A9249-2.jpg?format=750w" alt="Foule Sunday Music au soleil"><span>13.09 · tarmac ✈️</span></div>
+      <div class="pola"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/6718c510635b096b569c1647/61d46db6-b157-434e-bf2e-550b717157a6/SUNDAYMUSICFESTIVAL-%40jordanmarchand_cv-71.jpg?format=750w" alt="Sunday Music Festival"><span>golden hour</span></div>
+      <div class="pola"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/6718c510635b096b569c1647/aa1f3e7e-3545-4cb3-9db9-4626d7ad7e07/_N8A9383.jpg?format=750w" alt="Danseurs Sunday Music"><span>la famille ☀️</span></div>
+    </div>
+  </div>
+  <div class="wrap">
+    <div class="stats">
+      <div class="stat rv"><b data-count="72.9" data-dec="1" data-suf=" k">0</b><span>abonnés Instagram</span></div>
+      <div class="stat rv d1"><b data-count="15000">0</b><span>personnes sur le tarmac en 2026</span></div>
+      <div class="stat rv d2"><b data-count="11">0</b><span>éditions depuis 2024</span></div>
+      <div class="stat rv d3"><b data-count="62">0</b><span>artistes invités</span></div>
+    </div>
+    <p class="credit">Chiffres publiés par Sunday Music sur Instagram et Shotgun.</p>
+  </div>
+</section>
+
+<section class="sec editions" id="editions">
+  <div class="stars"></div>
+  <div class="wrap" style="position:relative">
+    <div class="kicker rv">2024 → 2026</div>
+    <h2 class="rv d1">Onze dimanches <em>à part.</em></h2>
+    <p class="lead rv d2">Du tarmac de l'aéroport de Montpellier aux arènes de Nîmes, chaque édition a son décor.</p>
+    <div class="filters rv" id="ed-filters"></div>
+    <div class="timeline" id="timeline"></div>
+  </div>
+</section>
+
+<section class="sec" id="lineup">
+  <div class="wrap">
+    <div class="kicker rv">Line-up</div>
+    <h2 class="rv d1">Ils ont fait <em>danser le dimanche.</em></h2>
+    <p class="lead rv d2">Têtes d'affiche internationales, résidents du Sunday Crew et talents de la scène locale.</p>
+    <div class="heads" id="heads"></div>
+    <div style="display:flex;gap:12px;align-items:center;flex-wrap:wrap">
+      <label for="ed-select" style="font-weight:800">Filtrer par édition</label>
+      <select id="ed-select"></select>
+      <span id="count" style="color:var(--mute);font-size:14px"></span>
+    </div>
+    <div class="tags" id="tags"></div>
+    <p class="credit" style="margin-top:14px">Line-up repris des pages Shotgun de chaque édition. En orange : le Sunday Crew.</p>
+  </div>
+</section>
+
+<!-- Instagram en direct -->
+<section class="sec" id="insta" style="padding-bottom:40px">
+  <div class="wrap">
+    <div class="ighead">
+      <div>
+        <div class="kicker rv">@sundaymusic.ofc</div>
+        <h2 class="rv d1">En direct <em>d'Instagram.</em></h2>
+        <p class="lead rv d2">Chaque story et chaque post de Sunday Music arrive ici tout seul, sans rien refaire.</p>
+      </div>
+      <div class="live rv" id="igState"><i></i><span></span></div>
+    </div>
+    <div class="stories rv" id="igStories"></div>
+    <div class="posts" id="igPosts"></div>
+    <div class="rv" style="margin-top:24px"><a class="btn ghost" href="https://www.instagram.com/sundaymusic.ofc/" target="_blank" rel="noopener">Suivre @sundaymusic.ofc</a></div>
+  </div>
+</section>
+<div id="sv" role="dialog" aria-label="Story"><div class="bar"><i></i></div><div class="who"><img src="logo.png" alt="">sundaymusic.ofc <span id="svT"></span></div><button class="x" aria-label="Fermer">✕</button><div id="svM"></div></div>
+
+<section class="sec" id="photos" style="background:#efe4d3">
+  <div class="wrap">
+    <div class="kicker rv">Pellicule</div>
+    <h2 class="rv d1">Souvenirs <em>de dimanche.</em></h2>
+    <div class="gallery" id="gallery"></div>
+    <p class="credit">Photos : site officiel sundaymusic.events. Toutes les autres sur <a href="https://www.instagram.com/sundaymusic.ofc/" target="_blank" rel="noopener">@sundaymusic.ofc</a>.</p>
+  </div>
+</section>
+<div class="lightbox" id="lightbox" role="dialog" aria-label="Photo agrandie"><img alt=""></div>
+
+<section class="sec" id="jourj">
+  <div class="wrap">
+    <div class="kicker rv">Le jour J</div>
+    <h2 class="rv d1">De 13 h <em>jusqu'au bout de la nuit.</em></h2>
+    <p class="lead rv d2">Exemple du déroulé de l'édition Aéroport 2026. Les horaires exacts sont donnés avant chaque édition.</p>
+    <div class="dday">
+      <div class="card rv" id="program">
+        <h3>Programme type</h3>
+        <div id="sets"></div>
+      </div>
+      <div class="card rv d1">
+        <h3>Infos pratiques</h3>
+        <div class="infos">
+          <div class="info"><span>🎫</span><div><b>Billets</b><p>Uniquement sur la billetterie officielle. Préventes d'abord pour les pré-inscrits.</p></div></div>
+          <div class="info"><span>🚌</span><div><b>Navettes</b><p>Retours vers Montpellier centre toute la soirée (exemple : 22 h → 1 h 30).</p></div></div>
+          <div class="info"><span>💧</span><div><b>Eau gratuite</b><p>Gourdes vides acceptées à l'entrée.</p></div></div>
+          <div class="info"><span>⛑️</span><div><b>Secours</b><p>Poste de secours sur place. Urgence : 112.</p></div></div>
+          <div class="info"><span>🧥</span><div><b>Vestiaire</b><p>Juste après l'entrée.</p></div></div>
+          <div class="info"><span>🔞</span><div><b>18 ans et +</b><p>Pièce d'identité demandée à l'entrée.</p></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card rv" style="margin-top:28px">
+      <h3>Questions fréquentes</h3>
+      <details><summary>Où acheter mes billets ?</summary><p>Sur la billetterie officielle indiquée dans le Linktree de Sunday Music. Méfiez-vous des reventes hors plateforme.</p></details>
+      <details><summary>C'est complet, je fais comment ?</summary><p>Inscrivez-vous à la liste d'attente plus bas : en cas de places libérées, vous êtes prévenu en premier.</p></details>
+      <details><summary>Je peux revenir après être sorti ?</summary><p>Les règles de sortie dépendent du lieu. Elles sont précisées sur la page de chaque édition.</p></details>
+      <details><summary>Comment rentrer après la fête ?</summary><p>Des navettes partent régulièrement vers le centre de Montpellier. Pensez aussi au covoiturage avec votre bande.</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="preventes" style="padding-top:0">
+  <div class="wrap">
+    <div class="next rv">
+      <div style="position:relative">
+        <div class="kicker">Prochaine édition</div>
+        <h2>Clos de <em style="color:#fff3d6">Provence</em></h2>
+        <p style="font-size:18px;opacity:.95">Date et line-up à venir. Les préventes ouvrent d'abord aux pré-inscrits.</p>
+        <div class="poll">
+          <b style="font-size:18px">Qui pour la prochaine édition ?</b>
+          <div id="poll"></div>
+        </div>
+      </div>
+      <form id="presale">
+        <b style="font:800 24px var(--serif)">🎫 Pré-inscription</b>
+        <input type="email" id="email" required placeholder="ton@email.fr" aria-label="Adresse e-mail" autocomplete="email">
+        <label><input type="checkbox" id="wait"> M'ajouter aussi à la liste d'attente</label>
+        <button class="btn" type="submit" style="justify-content:center">Je veux mes préventes</button>
+        <small style="opacity:.85">Démo : rien n'est envoyé, l'inscription reste sur cet appareil.</small>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="musique" style="padding-top:20px">
+  <div class="wrap duo">
+    <div class="rv">
+      <div class="kicker">Playlist officielle</div>
+      <h2>Le son <em>du dimanche.</em></h2>
+      <iframe class="spotify" loading="lazy" src="https://open.spotify.com/embed/playlist/4sKw4nBBteircZtSko4lfQ?utm_source=generator" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" title="Playlist Spotify Sunday Music"></iframe>
+    </div>
+    <div class="vinyl rv d2" aria-hidden="true"><img src="logo.png" alt=""></div>
+  </div>
+</section>
+
+<section class="sec" style="background:#efe4d3">
+  <div class="wrap duo">
+    <div class="phone rv"><img loading="lazy" src="app-accueil.png" alt="Écran d'accueil de l'app Sunday Music"></div>
+    <div class="rv d1">
+      <div class="kicker">L'app Sunday</div>
+      <h2>Tout le dimanche <em>dans la poche.</em></h2>
+      <ul class="ticks">
+        <li>Billet, programme en direct et plan du site</li>
+        <li>Passeport des éditions et niveaux de fidélité</li>
+        <li>Préventes en avant-première et alertes</li>
+        <li>Retrouver sa bande, navettes, aide sur place</li>
+      </ul>
+      <a class="btn sun" href="https://azizbena-stack.github.io/md-d6sg2iblc8l8zcyz/" target="_blank" rel="noopener">Essayer la démo de l'app →</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="big rv">See you <em>sunday.</em></div>
+    <div class="socials">
+      <a href="https://www.instagram.com/sundaymusic.ofc/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.tiktok.com/@sundaymusic.ofc" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://open.spotify.com/playlist/4sKw4nBBteircZtSko4lfQ" target="_blank" rel="noopener">Spotify</a>
+      <a href="https://linktr.ee/sundaymusic" target="_blank" rel="noopener">Linktree</a>
+      <a href="https://shop.sundaymusic.events/" target="_blank" rel="noopener">Boutique</a>
+      <a href="https://sundaymusic.events/" target="_blank" rel="noopener">Site officiel</a>
+    </div>
+    <p class="legal">Démo · maquette non officielle, réalisée pour présentation aux organisateurs de Sunday Music. Logo et photos : sundaymusic.events. Le sondage et le formulaire de préventes sont des exemples. Instagram : derniers posts réels du compte (démo), stories d'exemple.</p>
+  </div>
+</footer>
+
+<div class="mbar" id="mbar"><a class="btn sun" href="#preventes">🎫 Préventes</a><a class="btn" href="#insta">Instagram</a></div>
+<button class="totop" id="totop" aria-label="Revenir en haut">↑</button>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const IG = 'https://www.instagram.com/';
+const EDITIONS = [
+  {id:'airport26', post:'p/DdRqsyQDLav', ico:'✈️', when:'13 sept. 2026', title:'Aéroport de Montpellier · 3ᵉ édition', place:'Aéroport',
+   text:'15 000 personnes sur le tarmac, de 13 h à 1 h. Le plus gros show de l\'année.',
+   who:['ANOTR','AMOR','Silvie Loto','ALCI','Soubeiran','Casa Mata']},
+  {id:'lunel26', post:'p/DafYP3FjNie', ico:'🏟️', when:'5 juil. 2026', title:'Arènes de Lunel', place:'Arènes',
+   text:'Retour à la maison pour 12 h de show. Plus de 8 000 pré-inscrits.', who:['Mochakk','Soubeiran','Mathis Bouloc','Tibo KSRG','Solarce Brothers','Mamba Skar']},
+  {id:'nimes26', post:'p/DYNN6ljDIyL', ico:'🎻', when:'8 mai 2026', title:'Arènes de Nîmes × Garten Project', place:'Arènes',
+   text:'Premier show orchestral de Black Coffee en Europe. 14 000 danseurs.', who:['Black Coffee']},
+  {id:'dune26', post:'reel/DUnLV0XDP35', ico:'🌞', when:'5 avr. 2026', title:'La Dune · 4ᵉ édition', place:'Club',
+   text:'Le club ouvert en pleine journée : club, patio et rooftop Terrazza.', who:['Claptone','Soubeiran','Tibo KSRG','Mathis Bouloc','Casa Mata']},
+  {id:'origins26', post:'p/DUlcmVzDKdA', ico:'🏠', when:'Début 2026', title:'Origins by Sunday', place:'Club',
+   text:'Retour aux soirées en petit comité des débuts. Sold out.', who:[]},
+  {id:'dec25', post:'p/DS2uA6mjLbv', ico:'❤️‍🔥', when:'Déc. 2025', title:'Dernier dimanche de 2025', place:'Club',
+   text:'La soirée de clôture d\'une année folle.', who:[]},
+  {id:'airport25', post:'p/DOti-fTjOup', ico:'✈️', when:'14 sept. 2025', title:'Aéroport de Montpellier · 2ᵉ édition', place:'Aéroport',
+   text:'12 000 personnes, sold out. Tipi Stage et première scène AMOR.', who:['Chris Stussy','Prospa','AMOR','Matisa']},
+  {id:'dune25b', post:'', ico:'🌴', when:'13 juil. 2025', title:'La Dune · édition d\'été', place:'Club',
+   text:'Retour à La Dune en plein été.', who:['Ben Sterling']},
+  {id:'eiffel25', post:'reel/DRaE1VeDFRh', ico:'🗼', when:'25 mai 2025', title:'Tour Eiffel, 1er étage', place:'Tour Eiffel',
+   text:'Sunday Music prend le premier étage de la Tour Eiffel.', who:['Carlita']},
+  {id:'dune25', post:'', ico:'🌞', when:'20 avr. 2025', title:'La Dune × Terrazza', place:'Club',
+   text:'Club, rooftop et patio, de jour.', who:['Alex Wann','Cosmic Boys','Soubeiran','Tibo KSRG','Mathis Bouloc']},
+  {id:'airport24', post:'p/DB9RSIzIHTp', ico:'✈️', when:'2024', title:'Aéroport de Montpellier · 1ʳᵉ édition', place:'Aéroport',
+   text:'La première sur le tarmac : plus de 9 000 personnes, sold out.', who:[]},
+];
+
+const LEVELS = [[0,'Curieux·se','Coche les éditions où tu étais.'],[1,'Newcomer','Bienvenue dans la famille.'],
+  [3,'Regular','Tu connais le chemin du dimanche.'],[5,'Sunday Family','Tu fais partie des murs.'],[8,'Légende','Tu as tout fait. Respect.']];
+
+// Line-up : pages Shotgun de chaque édition (lues le 11/10/2026). head = tête d'affiche, ig = compte Instagram connu
+const ARTISTS = [
+  {n:'ANOTR', ig:'anotr.music', ed:'Aéroport 2026', head:1},
+  {n:'Black Coffee', ig:'realblackcoffee', ed:'Nîmes 2026', head:1},
+  {n:'Mochakk', ig:'mochakk', ed:'Lunel 2026', head:1},
+  {n:'Chris Stussy', ig:'chrisstussydj', ed:'Aéroport 2025', head:1},
+  {n:'Claptone', ed:'La Dune 2026', head:1},
+  {n:'Soubeiran', ig:'soubeiran00', ed:'Sunday Crew · Aéroport 2026 · Lunel 2026 · La Dune 2026 · Aéroport 2025 · La Dune 2025'},
+  {n:'Tibo KSRG', ig:'tibo_ksrg', ed:'Sunday Crew · Aéroport 2026 · Lunel 2026 · La Dune 2026 · Aéroport 2025 · La Dune 2025'},
+  {n:'Mathis Bouloc', ed:'Sunday Crew · Aéroport 2026 · Lunel 2026 · La Dune 2026 · Aéroport 2025 · La Dune 2025'},
+  {n:'Carlita', ig:'carlitamusic', ed:'Tour Eiffel 2025'},
+  {n:'Prospa', ed:'Aéroport 2025'},
+  {n:'Ben Sterling', ed:'La Dune 2025'},
+  {n:'Alex Wann', ed:'La Dune 2025'},
+  {n:'Cosmic Boys', ed:'La Dune 2025'},
+  {n:'AMOR', ig:'this_is_amor', ed:'Aéroport 2026 · Aéroport 2025'},
+  {n:'Silvie Loto', ig:'silvieloto', ed:'Aéroport 2026'},
+  {n:'ALCI', ig:'alcimusiq', ed:'Aéroport 2026'},
+  {n:'Casa Mata', ig:'casamata_music', ed:'Aéroport 2026 · La Dune 2026 · Aéroport 2025 · La Dune 2025'},
+  {n:'Miss Airie', ed:'Aéroport 2026'},
+  {n:'Black Accord', ed:'Aéroport 2026 · Aéroport 2025 · La Dune 2025'},
+  {n:'Charlotte Newman', ed:'Aéroport 2026 · Aéroport 2025 · La Dune 2025'},
+  {n:'Thöm', ed:'Aéroport 2026 · La Dune 2026 · Aéroport 2025 · La Dune 2025'},
+  {n:'DJ Jean Ba', ig:'djjeanba', ed:'Aéroport 2026 · Lunel 2026 · La Dune 2026'},
+  {n:'ZakHarry', ed:'Aéroport 2026 · Lunel 2026 · La Dune 2026'},
+  {n:'Bellamour', ed:'Aéroport 2026 · La Dune 2026'},
+  {n:'Ekiz', ed:'Aéroport 2026 · La Dune 2026'},
+  {n:'Flo Masset', ed:'Aéroport 2026 · La Dune 2026'},
+  {n:'Amrita', ed:'Aéroport 2026'},
+  {n:'L\'Amorosso', ed:'Aéroport 2026'},
+  {n:'SOWA', ed:'Aéroport 2026'},
+  {n:'Messina', ed:'Aéroport 2026'},
+  {n:'Samy El.A', ed:'Aéroport 2026'},
+  {n:'Nico Rodas', ed:'Aéroport 2026'},
+  {n:'Martial', ed:'Aéroport 2026 · La Dune 2026'},
+  {n:'Rooléh', ed:'Aéroport 2026'},
+  {n:'Matisa', ed:'Aéroport 2025'},
+  {n:'Alex Vergnet', ed:'Aéroport 2025 · La Dune 2025'},
+  {n:'Vigouroux', ed:'Aéroport 2025 · La Dune 2025'},
+  {n:'Alauze', ed:'Aéroport 2025'},
+  {n:'Attalin', ed:'Aéroport 2025'},
+  {n:'Bouni', ed:'Aéroport 2025'},
+  {n:'Greg Herma', ed:'Aéroport 2025'},
+  {n:'Delon', ed:'Aéroport 2025'},
+  {n:'Solarce Brothers', ed:'Lunel 2026'},
+  {n:'Mamba Skar', ed:'Lunel 2026'},
+  {n:'MASS', ed:'Lunel 2026'},
+  {n:'nocapz.', ed:'Lunel 2026'},
+  {n:'Acurlaz', ed:'Lunel 2026'},
+  {n:'Allon', ed:'La Dune 2026'},
+  {n:'ØBY', ed:'La Dune 2026'},
+  {n:'Tom Paroux', ed:'La Dune 2026'},
+  {n:'South Connection Records', ed:'La Dune 2026 · La Dune 2025'},
+  {n:'Moarasiá', ed:'La Dune 2025'},
+  {n:'Teus', ed:'La Dune 2025'},
+  {n:'Hugo Brancato', ed:'La Dune 2025'},
+  {n:'Lucas Villanova', ed:'La Dune 2025'},
+  {n:'Hugo Cstln', ed:'La Dune 2025'},
+  {n:'PAWSA', ed:'Éditions précédentes'},
+  {n:'Francis Mercier', ed:'Éditions précédentes'},
+  {n:'Kölsch', ed:'Éditions précédentes'},
+  {n:'Nitefreak', ed:'Éditions précédentes'},
+  {n:'Franc Fala', ed:'Éditions précédentes'},
+  {n:'Ahmed Spins', ed:'Éditions précédentes'},
+];
+const SETS = [['13:00','Soubeiran'],['15:00','ALCI'],['17:00','Silvie Loto'],['19:00','AMOR'],['21:00','ANOTR'],['23:00','Casa Mata']];
+const POLL = [['Keinemusik', 412], ['Peggy Gou', 365], ['Solomun', 298], ['Retour de Mochakk', 240]];
+const PHOTOS = [
+  ['051fa4af-6f0b-48d3-ab93-c749a5eb79b0/_N8A9249-2.jpg', 'sur le tarmac ✈️'],
+  ['61d46db6-b157-434e-bf2e-550b717157a6/SUNDAYMUSICFESTIVAL-%40jordanmarchand_cv-71.jpg', 'golden hour'],
+  ['aa1f3e7e-3545-4cb3-9db9-4626d7ad7e07/_N8A9383.jpg', 'les mains en l\'air'],
+  ['a2655d93-ec45-4fbe-9fea-736eb684862b/101A3481.jpg', 'dimanche soir'],
+  ['56424aad-3a1a-4f23-99f7-48d88efbeee6/101A5266.jpg', 'la bande'],
+  ['c4e222a5-7129-486c-bf97-253d92a4f5c9/IMG_2219+enzo+%281%29-min.jpeg', 'au soleil ☀️'],
+  ['16ed2f38-80c1-45b9-b437-621e23046665/_N8A9472.png', 'derrière les platines'],
+  ['de40f721-1123-4b5f-84cc-c42a586785ea/Untitled+design+%2844%29+%281%29.png', 'Sunday Family'],
+];
+const CDN = 'https://images.squarespace-cdn.com/content/v1/6718c510635b096b569c1647/';
+const $ = s => document.querySelector(s);
+const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const store = (k, v) => { try { return v === undefined ? localStorage.getItem(k) : localStorage.setItem(k, v); } catch { return null; } };
+let toastT;
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('on'); clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 3200); }
+
+// Compte à rebours jusqu'au prochain dimanche 13 h (comme dans l'app)
+function nextSunday(now) {
+  const d = new Date(now); d.setHours(13, 0, 0, 0);
+  d.setDate(d.getDate() + (7 - d.getDay()) % 7);
+  if (d <= now) d.setDate(d.getDate() + 7);
+  return d;
+}
+function tick() {
+  const s = Math.floor((nextSunday(new Date()) - new Date()) / 1000);
+  const pad = n => String(n).padStart(2, '0');
+  $('#cd-d').textContent = Math.floor(s / 86400);
+  $('#cd-h').textContent = pad(Math.floor(s / 3600) % 24);
+  $('#cd-m').textContent = pad(Math.floor(s / 60) % 60);
+  $('#cd-s').textContent = pad(s % 60);
+}
+tick(); setInterval(tick, 1000);
+
+// Défilé des artistes (doublé pour boucler sans saut)
+const names = ARTISTS.slice(0, 20).map(a => `<span>${esc(a.n)}</span>`).join('');
+$('#marquee').innerHTML = names + names;
+
+// Éditions
+const PLACES_ED = ['Tous', ...new Set(EDITIONS.map(e => e.place))];
+$('#ed-filters').innerHTML = PLACES_ED.map((p, i) => `<button class="chip${i ? '' : ' on'}" data-p="${esc(p)}">${esc(p)}</button>`).join('');
+$('#timeline').innerHTML = EDITIONS.map(e => `
+  <article class="ed rv" data-p="${esc(e.place)}">
+    <div class="ico">${e.ico}</div>
+    <div>
+      <time>${esc(e.when)}</time>
+      <h3>${esc(e.title)}</h3>
+      <p>${esc(e.text)}</p>
+      ${e.who.length ? `<div class="who">${e.who.map(w => `<span>${esc(w)}</span>`).join('')}</div>` : ''}
+    </div>
+    ${e.post ? `<a href="${IG + e.post}/" target="_blank" rel="noopener">Voir le post →</a>` : '<span></span>'}
+  </article>`).join('');
+$('#ed-filters').onclick = e => {
+  const b = e.target.closest('.chip'); if (!b) return;
+  document.querySelectorAll('#ed-filters .chip').forEach(c => c.classList.toggle('on', c === b));
+  document.querySelectorAll('.ed').forEach(a => a.classList.toggle('hide', b.dataset.p !== 'Tous' && a.dataset.p !== b.dataset.p));
+};
+
+// Line-up : têtes d'affiche en grand, le reste en étiquettes filtrables
+const COLORS = [['#2c6ab5','#151a2a'],['#f3b259','#e2672f'],['#a5583a','#5e4130'],['#8fb9d8','#2c6ab5'],['#e2672f','#a5583a']];
+$('#heads').innerHTML = ARTISTS.filter(a => a.head).map((a, i) => `
+  <a class="head rv d${i % 4}" style="--c1:${COLORS[i % 5][0]};--c2:${COLORS[i % 5][1]}" data-i="${esc(a.n[0])}" ${a.ig ? `href="${IG + a.ig}/" target="_blank" rel="noopener"` : ''}>
+    <div><b>${esc(a.n)}</b><small>${esc(a.ed)}</small></div>
+  </a>`).join('');
+const EDS = [...new Set(ARTISTS.flatMap(a => a.ed.split(' · ')))].filter(e => e !== 'Sunday Crew');
+$('#ed-select').innerHTML = '<option value="">Toutes les éditions</option>' + EDS.map(e => `<option>${esc(e)}</option>`).join('');
+function lineup(ed) { return ARTISTS.filter(a => !ed || a.ed.split(' · ').includes(ed)); }
+function renderTags() {
+  const list = lineup($('#ed-select').value);
+  $('#count').textContent = `${list.length} artiste${list.length > 1 ? 's' : ''}`;
+  $('#tags').innerHTML = list.map((a, i) => {
+    const cls = a.ed.startsWith('Sunday Crew') ? ' class="crew"' : '';
+    const st = ` style="animation-delay:${Math.min(i, 40) * 15}ms"`;
+    return a.ig ? `<a${cls}${st} href="${IG + a.ig}/" target="_blank" rel="noopener">${esc(a.n)} ↗</a>` : `<span${cls}${st}>${esc(a.n)}</span>`;
+  }).join('');
+}
+$('#ed-select').onchange = renderTags;
+renderTags();
+
+// Galerie + visionneuse
+$('#gallery').innerHTML = PHOTOS.map(([src, cap]) => `<figure class="rv"><img loading="lazy" src="${CDN + src}?format=750w" alt="${esc(cap)}"><figcaption>${esc(cap)}</figcaption></figure>`).join('');
+$('#gallery').onclick = e => { const img = e.target.closest('figure')?.querySelector('img'); if (!img) return; $('#lightbox img').src = img.src.replace('750w', '1500w'); $('#lightbox').classList.add('on'); };
+$('#lightbox').onclick = () => $('#lightbox').classList.remove('on');
+addEventListener('keydown', e => { if (e.key === 'Escape') $('#lightbox').classList.remove('on'); });
+
+// ===== Instagram en direct =====
+// Version officielle : sync-stories.py (dossier parent) écrit posts.json et stories.json depuis l'API Instagram (compte pro de Sunday Music)
+// toutes les 2 min, et le site les relit chaque minute. Démo (fichiers absents) : les 9 derniers posts réels du profil, relevés le 21/10/2026, photos en local.
+const IG_POSTS = [
+  ['p/DdRqsyQDLav', 'Our biggest show of the year ✈️ 15 000 personnes autour d\'ANOTR', 1],
+  ['p/DYNN6ljDIyL', '14 000 danseurs avec la légende Black Coffee', 1],
+  ['p/DafYP3FjNie', 'Merci pour cette édition si spéciale, à Lunel 🏠', 1],
+  ['reel/DeoZuW-M8pI', 'take us back at @mplaeroport ✈️'],
+  ['p/Dd9T99vDGev', 'Quelques souvenirs laissés par les artistes 🎞️'],
+  ['p/Ddb0CbODI-f', '@anotr à l\'aéroport, un de nos shows les plus iconiques'],
+  ['p/DdUF1EtgMLf', 'Avec Soubeiran : merci d\'être venus dimanche'],
+  ['p/DdPzwNYDLXK', 'And that\'s how we end a day like that 🌴'],
+  ['p/DdPld-1DOxG', 'What a day 🌞'],
+];
+const DEMO_POSTS = IG_POSTS.map(([path, cap, pin], i) => ({url: `ig-${i + 1}.jpg`, link: IG + path + '/', caption: cap, video: path.startsWith('reel'), pin}));
+const DEMO_STORIES = [[4, 'Aéroport'], [3, 'Lunel'], [2, 'Nîmes'], [5, 'Souvenirs'], [9, 'Golden hour']].map(([n, t]) => ({url: `ig-${n}.jpg`, label: t}));
+let igSeen = 0, stList = [];
+const ago = t => { const m = (Date.now() - new Date(t)) / 6e4 | 0; return m < 60 ? `il y a ${Math.max(1, m)} min` : m < 1440 ? `il y a ${m / 60 | 0} h` : `il y a ${m / 1440 | 0} j`; };
+async function getJSON(f) { try { const r = await fetch(f + '?' + Date.now(), {cache: 'no-store'}); return r.ok ? await r.json() : null; } catch { return null; } }
+async function loadInsta() {
+  const [p, s] = await Promise.all([getJSON('posts.json'), getJSON('stories.json')]);
+  const real = !!p;
+  const posts = p ? p.map(o => ({url: o.url, link: o.link, caption: o.caption, video: o.type === 'VIDEO', time: o.time})) : DEMO_POSTS;
+  stList = s ? s.map(o => ({url: o.url, video: o.type === 'VIDEO', label: ago(o.time)})) : DEMO_STORIES;
+  const fresh = igSeen && posts.length ? posts.findIndex(o => o.url === igSeen) : 0; // posts arrivés depuis le dernier passage
+  $('#igPosts').innerHTML = posts.slice(0, 9).map((o, i) => `<a class="rv in" href="${esc(o.link)}" target="_blank" rel="noopener"><img loading="lazy" src="${esc(o.url)}" alt="${esc(o.caption || '')}">${o.video ? '<b class="vid">▶</b>' : ''}${o.pin ? '<b class="pin">📌</b>' : ''}${i < fresh ? '<b class="new">NOUVEAU</b>' : ''}<span>${esc(o.caption || '')}${o.time ? ' · ' + ago(o.time) : ''}</span></a>`).join('');
+  igSeen = posts[0]?.url;
+  $('#igStories').innerHTML = stList.length ? stList.map((o, i) => `<button data-i="${i}"><div class="ring"><img src="${esc(o.video ? 'logo.png' : o.url)}" alt=""></div>${esc(o.label)}</button>`).join('') : '<p style="color:var(--mute)">Pas de story en ce moment.</p>';
+  $('#igState').className = 'live rv in' + (real ? '' : ' demo');
+  $('#igState').innerHTML = real ? `<i></i><span>Synchronisé avec Instagram · ${new Date().toLocaleTimeString('fr-FR', {hour: '2-digit', minute: '2-digit'})}</span>` : '<i></i><b>Démo</b><span>derniers posts relevés le 21/10</span>';
+}
+let svT;
+function openStory(i) {
+  const o = stList[i]; if (!o) return $('#sv').classList.remove('on');
+  $('#svM').innerHTML = o.video ? `<video src="${esc(o.url)}" autoplay playsinline muted></video>` : `<img src="${esc(o.url)}" alt="">`;
+  $('#svT').textContent = o.label; $('#sv').classList.remove('on'); void $('#sv').offsetWidth; $('#sv').classList.add('on');
+  clearTimeout(svT); svT = setTimeout(() => openStory(i + 1), 5000);
+}
+$('#igStories').addEventListener('click', e => { const b = e.target.closest('button'); if (b) openStory(+b.dataset.i); });
+$('#sv').addEventListener('click', () => { clearTimeout(svT); $('#sv').classList.remove('on'); });
+loadInsta(); setInterval(loadInsta, 60e3);
+
+// Programme type
+$('#sets').innerHTML = SETS.map(([t, n], k) => `<div class="set"><time>${t}</time><b>${esc(n)}</b><i class="bar" style="width:${40 + k * 10}px;transition-delay:${k * 120}ms"></i></div>`).join('');
+
+// Sondage (base fictive + ton vote, gardé sur l'appareil)
+function renderPoll() {
+  const vote = store('sunday-poll');
+  if (vote == null) { $('#poll').innerHTML = POLL.map(([n], k) => `<button class="opt" data-k="${k}">${esc(n)}</button>`).join(''); return; }
+  const rows = POLL.map(([n, v], k) => [n, v + (k == vote ? 1 : 0), k == vote]);
+  const tot = rows.reduce((a, r) => a + r[1], 0), max = Math.max(...rows.map(r => r[1]));
+  $('#poll').innerHTML = rows.map(([n, v, me]) => `<div class="hbar${me ? ' me' : ''}"><span>${me ? '✓ ' : ''}${esc(n)}</span><i style="width:${v / max * 100}%"></i><span>${Math.round(v / tot * 100)} %</span></div>`).join('') +
+    `<p style="font-size:13px;margin-top:8px;opacity:.9">${tot.toLocaleString('fr-FR')} votes (exemple) · merci !</p>`;
+}
+$('#poll').onclick = e => { const b = e.target.closest('.opt'); if (b) { store('sunday-poll', b.dataset.k); renderPoll(); } };
+renderPoll();
+
+// Pré-inscription (démo : reste sur l'appareil)
+function presaleDone() { $('#presale').innerHTML = `<div class="ok">C'est noté ☀️</div><p style="text-align:center">Tu seras prévenu·e avant l'ouverture des préventes Clos de Provence.</p>`; }
+if (store('sunday-presale') === '1') presaleDone();
+$('#presale').onsubmit = e => {
+  e.preventDefault();
+  store('sunday-presale', '1');
+  if ($('#wait').checked) store('sunday-waitlist', '1');
+  presaleDone(); toast('Pré-inscription enregistrée (démo)');
+};
+
+// Compteurs animés
+function countUp(el) {
+  const to = +el.dataset.count, dec = +(el.dataset.dec || 0), suf = el.dataset.suf || '', t0 = performance.now();
+  const step = t => {
+    const k = Math.min(1, (t - t0) / 1600), v = to * (1 - Math.pow(1 - k, 3));
+    el.textContent = v.toLocaleString('fr-FR', {minimumFractionDigits: dec, maximumFractionDigits: dec}) + suf;
+    if (k < 1) requestAnimationFrame(step);
+  };
+  requestAnimationFrame(step);
+}
+
+// Apparitions au défilement
+const io = new IntersectionObserver(es => es.forEach(e => {
+  if (!e.isIntersecting) return;
+  e.target.classList.add('in');
+  e.target.querySelectorAll('[data-count]').forEach(countUp);
+  io.unobserve(e.target);
+}), {threshold: .15});
+document.querySelectorAll('.rv').forEach(el => io.observe(el));
+
+// Coucher de soleil + nav au défilement
+const nav = $('#nav'), hero = $('#top');
+function onScroll() {
+  const p = Math.min(1, scrollY / hero.offsetHeight);
+  document.documentElement.style.setProperty('--p', p.toFixed(3));
+  nav.classList.toggle('solid', scrollY > hero.offsetHeight - 90);
+  $('#totop').classList.toggle('on', scrollY > 900);
+  $('#mbar').classList.toggle('on', scrollY > hero.offsetHeight * .6);
+}
+addEventListener('scroll', onScroll, {passive: true}); onScroll();
+$('#totop').onclick = () => scrollTo({top: 0});
+$('#burger').onclick = () => { const o = nav.classList.toggle('open'); $('#burger').setAttribute('aria-expanded', o); if (o) nav.classList.add('solid'); };
+$('#links').onclick = () => nav.classList.remove('open');
+
+// Auto-test : ?test → console « selftest ok »
+if (location.search.includes('test')) {
+  const sun = nextSunday(new Date(2026, 9, 21, 12));            // mercredi
+  console.assert(sun.getDay() === 0 && sun.getDate() === 25 && sun.getHours() === 13, 'dimanche suivant');
+  console.assert(nextSunday(new Date(2026, 9, 25, 14)).getDate() === 1, 'dimanche passé 13 h → semaine suivante');
+  console.assert(nextSunday(new Date(2026, 9, 25, 9)).getDate() === 25, 'dimanche matin → même jour');
+  console.assert(lineup('Nîmes 2026').length === 1 && lineup('').length === ARTISTS.length, 'filtre line-up');
+  console.assert(document.querySelectorAll('.ed').length === EDITIONS.length, 'éditions');
+  setTimeout(() => { console.assert($('#igPosts').children.length === 9 && $('#igStories').children.length > 0, 'instagram'); console.log('selftest ok'); }, 1500);
+}
+</script>
+</body>
+</html>
