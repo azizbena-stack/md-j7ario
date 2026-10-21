@@ -917,16 +917,29 @@ $('#photosform').onsubmit = e => { e.preventDefault(); e.target.innerHTML = '<p 
 // Programme type
 $('#sets').innerHTML = SETS.map(([t, n], k) => `<div class="set"><time>${t}</time><b>${esc(n)}</b><i class="bar" style="width:${40 + k * 10}px;transition-delay:${k * 120}ms"></i></div>`).join('');
 
-// Sondage (base fictive + ton vote, gardé sur l'appareil)
+// Sondage (base fictive + ton vote, gardé sur l'appareil). « Autre » = l'artiste que le fan écrit lui-même (arrive dans l'espace gérant de l'app).
 function renderPoll() {
-  const vote = store('sunday-poll');
-  if (vote == null) { $('#poll').innerHTML = POLL.map(([n], k) => `<button class="opt" data-k="${k}">${esc(n)}</button>`).join(''); return; }
-  const rows = POLL.map(([n, v], k) => [n, v + (k == vote ? 1 : 0), k == vote]);
+  const vote = store('sunday-poll'), other = store('sunday-poll-other');
+  if (vote == null) { $('#poll').innerHTML = POLL.map(([n], k) => `<button class="opt" data-k="${k}">${esc(n)}</button>`).join('') + `<button class="opt" data-k="other">Autre… (je propose un artiste)</button>`; return; }
+  const rows = POLL.map(([n, v], k) => [esc(n), v + (k == vote ? 1 : 0), k == vote]);
+  if (vote === 'other') rows.push([esc(other || '') + ' (ta proposition)', 1, true]);
   const tot = rows.reduce((a, r) => a + r[1], 0), max = Math.max(...rows.map(r => r[1]));
-  $('#poll').innerHTML = rows.map(([n, v, me]) => `<div class="hbar${me ? ' me' : ''}"><span>${me ? '✓ ' : ''}${esc(n)}</span><i style="width:${v / max * 100}%"></i><span>${Math.round(v / tot * 100)} %</span></div>`).join('') +
-    `<p style="font-size:13px;margin-top:8px;opacity:.9">${tot.toLocaleString('fr-FR')} votes (exemple) · merci !</p>`;
+  $('#poll').innerHTML = rows.map(([n, v, me]) => `<div class="hbar${me ? ' me' : ''}"><span>${me ? '✓ ' : ''}${n}</span><i style="width:${v / max * 100}%"></i><span>${Math.max(1, Math.round(v / tot * 100))} %</span></div>`).join('') +
+    `<p style="font-size:13px;margin-top:8px;opacity:.9">${tot.toLocaleString('fr-FR')} votes (exemple) · merci ! Ta réponse est transmise aux organisateurs.</p>`;
 }
-$('#poll').onclick = e => { const b = e.target.closest('.opt'); if (b) { store('sunday-poll', b.dataset.k); renderPoll(); } };
+$('#poll').onclick = e => {
+  const b = e.target.closest('.opt'); if (!b) return;
+  if (b.dataset.k === 'other') {
+    $('#poll').innerHTML = `<form class="other" style="display:flex;gap:8px;margin-top:8px"><input id="poll-other" maxlength="40" placeholder="Quel artiste ?" required aria-label="Artiste proposé" style="flex:1;min-width:0;border:1.5px solid #fff;border-radius:14px;padding:11px 16px;font:600 15px var(--sans)"><button style="border:0;border-radius:14px;padding:11px 16px;background:#fff;color:var(--ink);font:700 15px var(--sans);cursor:pointer">Voter</button></form>`;
+    $('#poll-other').focus(); return;
+  }
+  store('sunday-poll', b.dataset.k); renderPoll();
+};
+$('#poll').onsubmit = e => {
+  e.preventDefault();
+  const name = $('#poll-other').value.trim(); if (!name) return;
+  store('sunday-poll', 'other'); store('sunday-poll-other', name); renderPoll();
+};
 renderPoll();
 
 // Pré-inscription (démo : reste sur l'appareil)
