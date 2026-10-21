@@ -8,13 +8,13 @@
 <meta name="theme-color" content="#2c6ab5">
 <link rel="icon" href="logo.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,800;1,9..144,500;1,9..144,800&family=Manrope:wght@400;600;800&family=Caveat:wght@700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
 /* Même DA que l'app : photo argentique, golden hour, crème / orange / bleu nuit */
 :root{
   --bg:#f4ecdf; --card:#fffaf1; --ink:#1d1814; --mute:#7a6a5c; --line:#e3d5c1;
   --sun:#f3b259; --orange:#e2672f; --terra:#a5583a; --sky:#8fb9d8; --wood:#5e4130; --night:#151a2a;
-  --serif:'Fraunces',Georgia,serif; --sans:'Manrope',system-ui,sans-serif; --hand:'Caveat',cursive;
+  --serif:'Anton',Impact,sans-serif; --sans:'Inter',system-ui,sans-serif; --hand:'Anton',Impact,sans-serif; /* polices du site officiel sundaymusic.events */
   --p:0; /* avancement du défilement dans le hero (0 → 1), posé par le JS */
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -24,11 +24,12 @@ body:after{content:"";position:fixed;inset:0;pointer-events:none;z-index:99;opac
   background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
 a{color:inherit}
 img{display:block;max-width:100%}
-h1,h2,h3{font-family:var(--serif);font-weight:800;line-height:1.02;letter-spacing:-.015em}
+h1,h2,h3{font-family:var(--serif);font-weight:400;line-height:1;letter-spacing:.01em;text-transform:uppercase}
+h2 em,h3 em,.big em{font-style:normal}
 h2{font-size:clamp(38px,6vw,68px);margin:6px 0 18px}
 h2 em,h3 em{font-weight:500;color:var(--orange)}
 .kicker{font-size:12px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:var(--terra)}
-.hand{font-family:var(--hand);font-weight:700}
+.hand{font-family:var(--hand);font-weight:400}
 .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
 .sec{padding:110px 0}
 .lead{font-size:19px;color:var(--mute);max-width:620px}
@@ -84,15 +85,15 @@ nav.solid .burger{color:var(--ink)}
 .hero-in{position:relative;z-index:2;padding:0 20px;transform:translateY(calc(var(--p)*-80px));opacity:calc(1 - var(--p)*1.2)}
 .hero .wordmark{width:min(720px,88vw);height:auto;margin:0 auto;filter:brightness(0) invert(1) drop-shadow(0 4px 20px rgba(20,40,80,.35));animation:pop 1.4s cubic-bezier(.2,.8,.2,1) both}
 @keyframes pop{from{opacity:0;transform:translateY(30px) scale(.94);filter:brightness(0) invert(1) blur(12px)}}
-.hero .tag{font-family:var(--hand);font-size:clamp(30px,4.5vw,46px);transform:rotate(-2deg);margin-top:4px;animation:pop 1.4s .4s both}
+.hero .tag{font-family:var(--hand);font-size:clamp(26px,4vw,40px);text-transform:uppercase;letter-spacing:.02em;margin-top:4px;animation:pop 1.4s .4s both}
 .countdown{display:flex;gap:10px;justify-content:center;margin:34px 0 10px;animation:pop 1.2s .7s both}
 .countdown[hidden]{display:none}
 .countdown div{background:rgba(255,250,241,.2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.35);border-radius:16px;padding:12px 4px;flex:0 1 84px;min-width:0}
-.countdown b{display:block;font:800 34px var(--serif);font-variant-numeric:tabular-nums}
+.countdown b{display:block;font:400 34px var(--serif);font-variant-numeric:tabular-nums}
 .countdown span{font-size:10px;text-transform:uppercase;letter-spacing:.12em}
 .hero small{display:block;font-weight:700;font-size:13px;opacity:.95;animation:pop 1.2s .8s both}
 .nextbox{display:inline-grid;gap:2px;margin-top:30px;background:rgba(255,250,241,.2);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid rgba(255,255,255,.35);border-radius:18px;padding:14px 22px;animation:pop 1.2s .7s both;max-width:100%}
-.nextbox b{font:800 22px var(--serif)}
+.nextbox b{font:400 22px var(--serif)}
 .nextbox span{font-size:13px;font-weight:700;opacity:.95}
 .hero .ctas{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:28px;animation:pop 1.2s 1s both}
 .hero .ctas .btn.ghost{color:#fff}
@@ -104,21 +105,21 @@ nav.solid .burger{color:var(--ink)}
 .marquee{background:var(--ink);color:var(--bg);overflow:hidden;padding:18px 0;transform:rotate(-1.5deg);margin:-14px -20px 0;position:relative;z-index:3}
 .marquee .track{display:flex;width:max-content;animation:scrollx 40s linear infinite}
 .marquee:hover .track{animation-play-state:paused}
-.marquee span{font:800 30px var(--serif);padding:0 22px;white-space:nowrap}
-.marquee span:nth-child(even){font-style:italic;font-weight:500;color:var(--sun)}
+.marquee span{font:400 30px var(--serif);padding:0 22px;white-space:nowrap}
+.marquee span:nth-child(even){color:var(--sun)}
 @keyframes scrollx{to{transform:translateX(-50%)}}
 
 /* Chiffres */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
 .stat{background:var(--card);border:1px solid var(--line);border-radius:24px;padding:28px 20px;text-align:center}
-.stat b{display:block;font:800 clamp(36px,4.5vw,54px) var(--serif);color:var(--orange);font-variant-numeric:tabular-nums}
+.stat b{display:block;font:400 clamp(36px,4.5vw,54px) var(--serif);color:var(--orange);font-variant-numeric:tabular-nums}
 .stat span{color:var(--mute);font-size:14px}
 .story{display:grid;grid-template-columns:1.1fr .9fr;gap:60px;align-items:center}
 .story p+p{margin-top:14px}
 .polas{position:relative;height:440px}
 .pola{position:absolute;background:#fffdf7;padding:12px 12px 46px;box-shadow:0 18px 40px rgba(60,40,20,.22);width:58%;transition:transform .5s cubic-bezier(.2,.8,.2,1)}
 .pola img{width:100%;aspect-ratio:1;object-fit:cover;background:linear-gradient(135deg,var(--sky),var(--sun))}
-.pola span{position:absolute;left:0;right:0;bottom:10px;text-align:center;font:700 22px var(--hand);color:var(--wood)}
+.pola span{position:absolute;left:0;right:0;bottom:10px;text-align:center;font:400 17px var(--hand);text-transform:uppercase;letter-spacing:.04em;color:var(--wood)}
 .polas .pola:nth-child(1){left:0;top:20px;transform:rotate(-7deg)}
 .polas .pola:nth-child(2){right:0;top:0;transform:rotate(6deg)}
 .polas .pola:nth-child(3){left:22%;top:150px;transform:rotate(-1deg)}
@@ -151,9 +152,9 @@ nav.solid .burger{color:var(--ink)}
 .heads{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin:30px 0 26px}
 .head{position:relative;aspect-ratio:3/4;border-radius:22px;overflow:hidden;display:flex;align-items:flex-end;padding:16px;color:#fff;text-decoration:none;
   background:linear-gradient(170deg,var(--c1),var(--c2));transition:transform .4s cubic-bezier(.2,.8,.2,1)}
-.head:before{content:attr(data-i);position:absolute;top:-10px;right:-6px;font:800 140px/1 var(--serif);opacity:.18}
+.head:before{content:attr(data-i);position:absolute;top:-10px;right:-6px;font:400 140px/1 var(--serif);opacity:.18}
 .head:hover{transform:translateY(-8px) rotate(-1.5deg)}
-.head b{font:800 26px/1 var(--serif);position:relative}
+.head b{font:400 26px/1 var(--serif);position:relative}
 .head small{display:block;font-size:12px;opacity:.85;margin-top:4px}
 .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
 .tags a,.tags span{border:1.5px solid var(--line);background:var(--card);border-radius:99px;padding:7px 14px;font-weight:700;font-size:14px;text-decoration:none;transition:.25s;animation:fadein .4s both}
@@ -169,7 +170,7 @@ select{font:700 14px var(--sans);padding:9px 14px;border-radius:99px;border:1.5p
 .gallery figure:nth-child(even){transform:rotate(1.5deg)}
 .gallery figure:hover{transform:rotate(0) scale(1.03);z-index:2}
 .gallery img{width:100%;height:auto;background:linear-gradient(135deg,var(--sky),var(--sun));min-height:160px;object-fit:cover}
-.gallery figcaption{position:absolute;bottom:8px;left:0;right:0;text-align:center;font:700 21px var(--hand);color:var(--wood)}
+.gallery figcaption{position:absolute;bottom:8px;left:0;right:0;text-align:center;font:400 16px var(--hand);text-transform:uppercase;letter-spacing:.04em;color:var(--wood)}
 .credit{font-size:12px;color:var(--mute);margin-top:6px}
 .lightbox{position:fixed;inset:0;background:rgba(21,26,42,.92);z-index:200;display:none;place-items:center;padding:30px;cursor:zoom-out}
 .lightbox.on{display:grid;animation:fadein .3s}
@@ -182,7 +183,7 @@ select{font:700 14px var(--sans);padding:9px 14px;border-radius:99px;border:1.5p
 .set{display:grid;grid-template-columns:64px 1fr auto;align-items:center;gap:12px;padding:12px 0;border-bottom:1px dashed var(--line)}
 .set:last-child{border:0}
 .set time{font:800 15px var(--sans);color:var(--terra);font-variant-numeric:tabular-nums}
-.set b{font:800 20px var(--serif)}
+.set b{font:400 20px var(--serif)}
 .set .bar{height:6px;border-radius:6px;background:linear-gradient(90deg,var(--sun),var(--orange));transform-origin:left;transform:scaleX(0);transition:transform 1.2s cubic-bezier(.2,.8,.2,1)}
 .in .set .bar{transform:scaleX(1)}
 .infos{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
@@ -192,7 +193,7 @@ select{font:700 14px var(--sans);padding:9px 14px;border-radius:99px;border:1.5p
 details{border-bottom:1px solid var(--line);padding:16px 0}
 details summary{cursor:pointer;font-weight:800;font-size:17px;list-style:none;display:flex;justify-content:space-between;gap:14px}
 details summary::-webkit-details-marker{display:none}
-details summary:after{content:"+";font:500 26px/1 var(--serif);color:var(--orange);transition:transform .3s}
+details summary:after{content:"+";font:400 26px/1 var(--serif);color:var(--orange);transition:transform .3s}
 details[open] summary:after{transform:rotate(45deg)}
 details p{color:var(--mute);margin-top:10px;animation:fadein .3s}
 
@@ -263,9 +264,46 @@ details p{color:var(--mute);margin-top:10px;animation:fadein .3s}
 /* Barre du bas sur mobile */
 .mbar{display:none}
 
+/* Repris du site officiel : mot entouré à la main, événements (affiches Shotgun), Sunday Crew, album photos, boutique */
+.circled{position:relative;white-space:nowrap}
+.circled svg{position:absolute;left:-12%;top:-22%;width:124%;height:144%;overflow:visible;pointer-events:none}
+.circled path{fill:none;stroke:currentColor;stroke-width:3;stroke-linecap:round;stroke-dasharray:420;stroke-dashoffset:420;transition:stroke-dashoffset 1.4s .5s ease}
+.in .circled path,.circled.in path{stroke-dashoffset:0}
+.y24{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin-top:50px}
+.y24 h3{font-size:30px;margin-bottom:6px}
+.y24 details{border-top:1px solid var(--ink);border-bottom:1px solid var(--line);padding:12px 0}
+.y24 details summary{font-size:15px;font-weight:600}
+.y24 details p{font-size:14px}
+.evup{border:1px solid #3a4060;border-radius:20px;padding:36px 20px;text-align:center;color:#b7ad9e;margin:26px 0 50px}
+.evup .btn{margin-top:16px}
+.posters{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;margin-top:22px}
+.poster{display:block;text-decoration:none;color:#f4ecdf}
+.poster .im{aspect-ratio:4/5;border-radius:16px;overflow:hidden;background:#222a44}
+.poster img{width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.poster:hover img{transform:scale(1.05)}
+.poster b{display:block;font:400 20px var(--serif);text-transform:uppercase;margin-top:12px}
+.poster span{font-size:13px;color:var(--sun);font-weight:600}
+.crew{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:30px}
+.crew a,.crew div{position:relative;aspect-ratio:3/4;border-radius:20px;overflow:hidden;display:grid;place-items:center;color:#fff;text-decoration:none;background:var(--wood)}
+.crew img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform .6s}
+.crew a:hover img{transform:scale(1.05)}
+.crew b{position:relative;font:400 clamp(30px,3.6vw,46px)/1 var(--serif);text-transform:uppercase;text-align:center;text-shadow:0 2px 20px rgba(0,0,0,.45);padding:0 10px}
+.album{max-width:620px;margin:0 auto;text-align:center}
+.album form{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:26px;text-align:left}
+.album label{display:grid;gap:6px;font-size:13px;font-weight:600}
+.album input,.album select{font:500 15px var(--sans);padding:12px 14px;border-radius:10px;border:1px solid var(--line);background:var(--card);color:var(--ink)}
+.album .full{grid-column:1/-1}
+.shop{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px;margin-top:30px}
+.shop a{display:block;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;transition:transform .3s}
+.shop a:hover{transform:translateY(-4px)}
+.shop .im{aspect-ratio:1;background:#fff}
+.shop img{width:100%;height:100%;object-fit:contain}
+.shop .t{padding:12px 14px;font-size:14px;font-weight:600;display:flex;justify-content:space-between;gap:10px}
+.shop .t b{color:var(--orange);white-space:nowrap}
+
 /* Pied de page */
 footer{background:var(--night);color:#cfc4b4;padding:80px 0 40px;position:relative;overflow:hidden}
-footer .big{font:800 clamp(60px,14vw,200px)/.9 var(--serif);color:#f4ecdf;letter-spacing:-.03em}
+footer .big{font:400 clamp(60px,14vw,200px)/.9 var(--serif);color:#f4ecdf;letter-spacing:0;text-transform:uppercase}
 footer .big em{font-weight:500;color:var(--sun)}
 .socials{display:flex;flex-wrap:wrap;gap:10px;margin:36px 0}
 .socials a{border:1.5px solid #3a4060;border-radius:99px;padding:10px 18px;text-decoration:none;font-weight:800;font-size:14px;transition:.25s}
@@ -291,6 +329,11 @@ footer .big em{font-weight:500;color:var(--sun)}
   .sec{padding:80px 0}
   .polas{height:360px}
   .infos{grid-template-columns:1fr}
+  .y24,.posters,.crew{grid-template-columns:minmax(0,1fr)}
+  .posters{grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+  .crew a,.crew div{aspect-ratio:4/3}
+  .shop{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+  .album form{grid-template-columns:minmax(0,1fr)}
   .hbar{grid-template-columns:110px 1fr 44px}
   .mbar{display:flex;gap:8px;position:fixed;left:0;right:0;bottom:0;z-index:45;padding:10px 12px calc(10px + env(safe-area-inset-bottom));background:rgba(244,236,223,.92);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);box-shadow:0 -1px 0 var(--line);transform:translateY(110%);transition:transform .35s}
   .mbar.on{transform:none}
@@ -320,12 +363,13 @@ footer .big em{font-weight:500;color:var(--sun)}
     <a class="logo" href="#top" aria-label="Sunday Music, accueil"><img src="logo-wordmark.webp" alt="Sunday Music"></a>
     <div class="links" id="links">
       <a href="#histoire">L'esprit</a>
+      <a href="#evenements">Événements</a>
       <a href="#editions">Éditions</a>
       <a href="#lineup">Line-up</a>
       <a href="#insta">Instagram</a>
       <a href="#photos">Photos</a>
       <a href="#jourj">Jour J</a>
-      <a href="#musique">Musique</a>
+      <a href="#boutique">Boutique</a>
     </div>
     <a class="btn sun" href="#preventes"><span class="eq"><i></i><i></i><i></i><i></i></span> Prochaine date</a>
     <button class="burger" id="burger" aria-label="Menu" aria-expanded="false">☰</button>
@@ -350,7 +394,7 @@ footer .big em{font-weight:500;color:var(--sun)}
     <div class="nextbox" id="nextbox"></div>
     <div class="ctas">
       <a class="btn sun" href="#preventes">🔔 Être prévenu·e</a>
-      <a class="btn ghost" href="#editions">Voir les éditions</a>
+      <a class="btn ghost" href="https://shotgun.live/fr/venues/sunday-music" target="_blank" rel="noopener">Rejoins le mouvement</a>
     </div>
   </div>
   <div class="scroll" aria-hidden="true"></div>
@@ -363,7 +407,7 @@ footer .big em{font-weight:500;color:var(--sun)}
     <div>
       <div class="kicker rv">L'esprit Sunday</div>
       <h2 class="rv d1">De la house, <em>en plein jour.</em></h2>
-      <p class="lead rv d2">Tout commence un dimanche froid de janvier 2019 : une bande d'amis, une cabane au fond d'un jardin, des platines et une paëlla. Ils sont 20. En septembre de la même année, ils sont près de 1 000.</p>
+      <p class="lead rv d2">Une histoire simple. Tout a commencé dans une <span class="circled">cabane<svg viewBox="0 0 120 50" aria-hidden="true"><path d="M8 28C10 8 60 2 100 8c22 4 18 30-12 36C50 52 6 46 8 24c1-10 20-18 40-20"/></svg></span> au fond d'un jardin, un dimanche froid de janvier 2019 : une bande d'amis, des platines et une paëlla. Ils sont 20. En septembre de la même année, ils sont près de 1 000.</p>
       <p class="rv d3" style="margin-top:14px">Depuis, Sunday Music a investi le tarmac de l'aéroport de Montpellier, les arènes de Lunel et de Nîmes, le premier étage de la Tour Eiffel, une plage de Port-Barcarès, le Clos de Provence et le rooftop de La Dune. Le décor change, l'esprit reste. Et Soubeiran, Tibo KSRG et Mathis Bouloc, le Sunday Crew, sont de chaque date.</p>
     </div>
     <div class="polas rv d2">
@@ -380,6 +424,34 @@ footer .big em{font-weight:500;color:var(--sun)}
       <div class="stat rv d3"><b data-count="2019">0</b><span>la toute première, dans une cabane</span></div>
     </div>
     <p class="credit">Sources : Instagram @sundaymusic.ofc, page Shotgun et site officiel de Sunday Music, relevés le 21/10/2026.</p>
+    <div class="y24">
+      <div class="rv"><h3>Aéroport de Montpellier</h3><details><summary>Informations</summary><p>L'édition phare de Sunday Music en 2024. Plus de 9 000 spectateurs. Line-up : PAWSA, Cosmic Boys, Chicks Luv Us, Casa Mata, Allon, Attalin, Berth, Soubeiran, Mathis Bouloc, Tibo KSRG…</p></details></div>
+      <div class="rv d1"><h3>Arènes de Lunel</h3><details><summary>Informations</summary><p>Le lieu mythique, au cœur de la ville qui a vu naître le projet. 5 000 personnes en 2024. Line-up : Joris Voorn, Nitefreak, Greg Herma, Xaminota, Soubeiran, Mathis Bouloc, Tibo KSRG…</p></details></div>
+      <div class="rv d2"><h3>Hors séries</h3><details><summary>Informations</summary><p>En 2024, 4 événements hors série entre La Dune, Le Heat et le Clos de Provence, avec Melé, Mont Rouge, Rivo, Silvie Loto… 8 000 personnes au total.</p></details></div>
+    </div>
+    <p class="credit">« Sunday Music en 2024 » : textes et chiffres de la page À propos du site officiel.</p>
+  </div>
+  <div class="wrap" id="crew" style="margin-top:90px">
+    <div class="kicker rv">Les résidents</div>
+    <h2 class="rv d1">Sunday <em>Crew</em></h2>
+    <div class="crew">
+      <div class="rv"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/6718c510635b096b569c1647/69c655fd-367d-49e0-bb83-c9a070f5c9d4/_N8A0173.JPG?format=750w" alt="Mathis Bouloc"><b>Mathis Bouloc</b></div>
+      <a class="rv d1" href="https://www.instagram.com/soubeiran00/" target="_blank" rel="noopener"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/6718c510635b096b569c1647/c6f502d9-d0db-4e3b-9555-e4ef536781f1/IMG_8985.jpeg?format=750w" alt="Soubeiran"><b>Soubeiran</b></a>
+      <a class="rv d2" href="https://www.instagram.com/tibo_ksrg/" target="_blank" rel="noopener"><img loading="lazy" src="https://images.squarespace-cdn.com/content/v1/6718c510635b096b569c1647/025bf442-8028-4c2d-91f7-092433e61365/_N8A0201.JPG?format=750w" alt="Tibo KSRG"><b>Tibo KSRG</b></a>
+    </div>
+    <p class="credit">Photos : page À propos du site officiel.</p>
+  </div>
+</section>
+
+<section class="sec editions" id="evenements" style="padding-bottom:0">
+  <div class="stars"></div>
+  <div class="wrap" style="position:relative">
+    <div class="kicker rv">Billetterie Shotgun</div>
+    <h2 class="rv d1">Événements <em>à venir</em></h2>
+    <div class="evup rv">Il n'y a actuellement aucun événement à venir.<br>Abonne-toi à Sunday Music sur Shotgun pour être notifié·e dès qu'un nouvel événement est publié.<br><a class="btn sun" href="https://shotgun.live/fr/venues/sunday-music" target="_blank" rel="noopener">S'abonner sur Shotgun</a></div>
+    <h2 class="rv">Événements <em>passés</em></h2>
+    <div class="posters" id="posters"></div>
+    <p class="credit" style="color:#8a8170">Affiches et dates : page Shotgun de Sunday Music, relevées le 21/10/2026.</p>
   </div>
 </section>
 
@@ -436,6 +508,20 @@ footer .big em{font-weight:500;color:var(--sun)}
     <p class="credit">Photos : site officiel sundaymusic.events. Toutes les autres sur <a href="https://www.instagram.com/sundaymusic.ofc/" target="_blank" rel="noopener">@sundaymusic.ofc</a>.</p>
   </div>
 </section>
+<section class="sec" id="album" style="padding-top:20px;background:#efe4d3">
+  <div class="wrap album">
+    <div class="kicker rv">Album photos</div>
+    <h2 class="rv d1">Vos photos <em>ici</em></h2>
+    <p class="rv d2" style="color:var(--mute)">Comme sur le site officiel : remplis ce formulaire pour récupérer tes photos de l'édition à l'aéroport.</p>
+    <form id="photosform" class="rv">
+      <label>Prénom<input required autocomplete="given-name"></label>
+      <label>Nom<input required autocomplete="family-name"></label>
+      <label class="full">Email<input type="email" required autocomplete="email"></label>
+      <button class="btn sun full" type="submit" style="justify-content:center">Recevoir mes photos</button>
+      <small class="full" style="color:var(--mute);text-align:center">Démo : rien n'est envoyé.</small>
+    </form>
+  </div>
+</section>
 <div class="lightbox" id="lightbox" role="dialog" aria-label="Photo agrandie"><img alt=""></div>
 
 <section class="sec" id="jourj">
@@ -483,13 +569,23 @@ footer .big em{font-weight:500;color:var(--sun)}
         </div>
       </div>
       <form id="presale">
-        <b style="font:800 24px var(--serif)">🔔 Être prévenu·e</b>
+        <b style="font:400 24px var(--serif)">🔔 Être prévenu·e</b>
         <input type="email" id="email" required placeholder="ton@email.fr" aria-label="Adresse e-mail" autocomplete="email">
         <label><input type="checkbox" id="wait"> Me prévenir aussi des préventes</label>
         <button class="btn" type="submit" style="justify-content:center">Prévenez-moi</button>
         <small style="opacity:.85">Démo : rien n'est envoyé, l'inscription reste sur cet appareil.</small>
       </form>
     </div>
+  </div>
+</section>
+
+<section class="sec" id="boutique" style="padding-top:20px">
+  <div class="wrap">
+    <div class="kicker rv">Boutique officielle</div>
+    <h2 class="rv d1">Un morceau de Sunday, <em>à porter au quotidien.</em></h2>
+    <div class="shop" id="shop"></div>
+    <div class="rv" style="margin-top:24px"><a class="btn ghost" href="https://shop.sundaymusic.events/" target="_blank" rel="noopener">Voir toute la boutique</a></div>
+    <p class="credit">Articles et prix de shop.sundaymusic.events, relevés le 21/10/2026.</p>
   </div>
 </section>
 
@@ -527,12 +623,16 @@ footer .big em{font-weight:500;color:var(--sun)}
     <div class="socials">
       <a href="https://www.instagram.com/sundaymusic.ofc/" target="_blank" rel="noopener">Instagram</a>
       <a href="https://www.tiktok.com/@sundaymusic.ofc" target="_blank" rel="noopener">TikTok</a>
+      <a href="https://www.facebook.com/Sundaymusicfrance" target="_blank" rel="noopener">Facebook</a>
+      <a href="https://www.linkedin.com/company/sundaymusic" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://shotgun.live/fr/venues/sunday-music" target="_blank" rel="noopener">Shotgun</a>
+      <a href="mailto:contact@astra-production.com">Contact</a>
       <a href="https://open.spotify.com/playlist/4sKw4nBBteircZtSko4lfQ" target="_blank" rel="noopener">Spotify</a>
       <a href="https://linktr.ee/sundaymusic" target="_blank" rel="noopener">Linktree</a>
       <a href="https://shop.sundaymusic.events/" target="_blank" rel="noopener">Boutique</a>
       <a href="https://sundaymusic.events/" target="_blank" rel="noopener">Site officiel</a>
     </div>
-    <p class="legal">Démo · maquette non officielle, réalisée pour présentation aux organisateurs de Sunday Music. Logo et photos : sundaymusic.events. Le sondage (votes) et le formulaire « Être prévenu·e » sont des exemples, rien n'est envoyé. Dates et line-ups : page Shotgun de Sunday Music. Instagram : derniers posts réels du compte (démo), stories d'exemple.</p>
+    <p class="legal">Démo · maquette non officielle, réalisée pour présentation aux organisateurs de Sunday Music. Logo et photos : sundaymusic.events. Le sondage (votes) et le formulaire « Être prévenu·e » sont des exemples, rien n'est envoyé. Dates et line-ups : page Shotgun de Sunday Music. Polices, rubriques, boutique et textes « Sunday Music en 2024 » : site officiel sundaymusic.events. Le formulaire « Vos photos ici » est une démo. Instagram : derniers posts réels du compte (démo), stories d'exemple.</p>
   </div>
 </footer>
 
@@ -570,9 +670,9 @@ const EDITIONS = [  // Shotgun (organisateur Sunday Music) + légendes Instagram
   {post:'', ico:'🍷', when:'16 févr. 2025', title:'Clos de Provence', place:'Clos de Provence',
    text:'Un dimanche d\'hiver au Clos de Provence.', who:['Soubeiran','Toman','Mathis Bouloc','Tibo KSRG']},
   {post:'p/DB9RSIzIHTp', ico:'✈️', when:'15 sept. 2024', title:'Aéroport de Montpellier · 1ʳᵉ édition', place:'Aéroport',
-   text:'La toute première à l\'aéroport.', who:['PAWSA','Cosmic Boys','Chicks Luv Us','Soubeiran']},
+   text:'La toute première à l\'aéroport : plus de 9 000 spectateurs.', who:['PAWSA','Cosmic Boys','Chicks Luv Us','Soubeiran']},
   {post:'', ico:'🏟️', when:'7 juil. 2024', title:'Arènes de Lunel 2024', place:'Arènes',
-   text:'Le festival dans les arènes de Lunel.', who:[]},
+   text:'Le festival dans la ville qui a vu naître le projet : 5 000 personnes.', who:['Joris Voorn','Nitefreak','Soubeiran','Mathis Bouloc','Tibo KSRG']},
   {post:'', ico:'🌞', when:'7 avr. 2024', title:'La Dune × Terrazza · 1ʳᵉ édition', place:'Club',
    text:'La première à La Dune.', who:['Soubeiran','Mathis Bouloc','Tibo KSRG']},
 ];
@@ -651,7 +751,8 @@ const ARTISTS = [
   {n:'Benji Ben', ed:'Lunel 2025 · Clos de Provence 2026'},
   {n:'Francis Mercier', ed:'Montpellier 2023'},
   {n:'Kölsch', ed:'Lunel 2023'},
-  {n:'Nitefreak', ed:'Éditions précédentes'},
+  {n:'Nitefreak', ed:'Lunel 2024'},
+  {n:'Joris Voorn', ed:'Lunel 2024'},
   {n:'Franc Fala', ed:'Clos de Provence 2026'},
   {n:'Ahmed Spins', ed:'Montpellier 2023'},
 ];
@@ -782,6 +883,37 @@ $('#igStories').addEventListener('click', e => { const b = e.target.closest('but
 $('#sv').addEventListener('click', () => { clearTimeout(svT); $('#sv').classList.remove('on'); });
 loadInsta(); setInterval(loadInsta, 60e3);
 
+// Événements passés : affiches Shotgun (copies locales aff-*.jpg)
+const SG = 'https://shotgun.live/fr/events/';
+const POSTERS = [
+  ['aeroport26', '13 sept. 2026', 'Aéroport de Montpellier · ANOTR', 'sunday-music-festival-aeroport-de-montpellier-2026'],
+  ['casita26', '13 sept. 2026', 'After party · Club Casita', 'sunday-music-after-party-aeroport-de-montpellier-casita'],
+  ['lunel26', '5 juil. 2026', 'Arènes de Lunel · Mochakk', 'sunday-music-festival-arenes-de-lunel'],
+  ['nimes26', '8 mai 2026', 'Black Coffee · Arènes de Nîmes', 'black-coffee-arenes-de-nimes'],
+  ['dune26', '5 avr. 2026', 'La Dune × Terrazza', 'sunday-music-x-la-dune-club-x-terrazza-05-04-26'],
+  ['origins26', '8 févr. 2026', 'Origins · Clos de Provence', 'sunday-music-clos-de-provence-2026'],
+  ['clos25', '14 déc. 2025', 'Clos de Provence 2025', 'sunday-music-clos-de-provence-2025'],
+  ['aeroport25', '14 sept. 2025', 'Aéroport de Montpellier 2025', 'sunday-music-x-aeroport-de-montpellier-2025'],
+  ['beach25', '20 juil. 2025', 'Beach Edition · Port-Barcarès', 'sunday-music-x-ginette-plage-port-barcares'],
+];
+$('#posters').innerHTML = POSTERS.map(([img, d, t, slug], i) => `<a class="poster rv d${i % 3}" href="${SG + slug}" target="_blank" rel="noopener"><div class="im"><img loading="lazy" src="aff-${img}.jpg" alt="Affiche : ${esc(t)}"></div><b>${esc(t)}</b><span>${esc(d)}</span></a>`).join('');
+
+// Boutique : vrais articles et prix (shop.sundaymusic.events), photos copiées en local (shop-*.jpg)
+const SHOP = [
+  ['Hoodie Sunday Music', '75 €', 'hoodie-sunday-music'],
+  ['T-shirt Aéroport 2026 · édition limitée', '40 €', 't-shirt-aeroport-2026-edition-limitee'],
+  ['Maillot de foot · bleu', '50 €', 'maillot-de-foot-sunday-music-bleu'],
+  ['Maillot de foot · rose', '50 €', 'maillot-de-foot-sunday-music-rose'],
+  ['Long sleeve · Airport edition', '40 €', 'long-sleeve-airport-edition'],
+  ['T-shirt Sunday Music Tour', '35 €', 't-shirt-sunday-music-tour'],
+  ['Casquette Sunday Music', '22 €', 'casquette-sunday-music-sable'],
+  ['Chaussettes', '10 €', 'chaussettes'],
+];
+$('#shop').innerHTML = SHOP.map(([n, pr, h], i) => `<a class="rv d${i % 4}" href="https://shop.sundaymusic.events/products/${h}" target="_blank" rel="noopener"><div class="im"><img loading="lazy" src="shop-${i + 1}.jpg" alt="${esc(n)}"></div><div class="t"><span>${esc(n)}</span><b>${pr}</b></div></a>`).join('');
+
+// Album photos (démo : rien n'est envoyé)
+$('#photosform').onsubmit = e => { e.preventDefault(); e.target.innerHTML = '<p class="full" style="text-align:center;font:400 26px var(--serif);text-transform:uppercase">C\'est noté ☀️</p><p class="full" style="text-align:center;color:var(--mute)">Démo : dans la version officielle, le lien vers tes photos arrive par email.</p>'; toast('Demande enregistrée (démo)'); };
+
 // Programme type
 $('#sets').innerHTML = SETS.map(([t, n], k) => `<div class="set"><time>${t}</time><b>${esc(n)}</b><i class="bar" style="width:${40 + k * 10}px;transition-delay:${k * 120}ms"></i></div>`).join('');
 
@@ -846,6 +978,8 @@ if (location.search.includes('test')) {
   console.assert(parts(90061000).join(' ') === '1 01 01 01' && parts(-5).join(' ') === '0 00 00 00', 'compte à rebours');
   console.assert(NEXT ? !$('#cd').hidden : $('#cd').hidden && /bientôt annoncée/.test($('#nextbox').textContent), 'pas de compte à rebours sans date annoncée');
   console.assert(!/dimanche, 13 h/.test(document.body.innerText) && !/Clos de Provence/.test($('#preventes').innerText) && getComputedStyle($('#cd')).display === (NEXT ? 'flex' : 'none'), 'plus de fausse prochaine édition');
+  console.assert(document.querySelectorAll('.poster').length === 9 && document.querySelectorAll('#shop a').length === 8 && document.querySelectorAll('.crew > *').length === 3, 'rubriques du site officiel');
+  console.assert(getComputedStyle(document.querySelector('h2')).fontFamily.includes('Anton'), 'police officielle');
   console.assert(lineup('Nîmes 2026').length === 5 && lineup('').length === ARTISTS.length, 'filtre line-up');
   console.assert(document.querySelectorAll('.ed').length === EDITIONS.length, 'éditions');
   setTimeout(() => { console.assert($('#igPosts').children.length === 9 && $('#igStories').children.length > 0, 'instagram'); console.log('selftest ok'); }, 1500);
